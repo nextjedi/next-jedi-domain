@@ -1,9 +1,23 @@
-<main>
-  <h1>Welcome</h1>
-  <p>Explore our projects and tools below.</p>
-  <ul>
-    <li><a routerLink="/life-mathematics/privacy-policy">Life Mathematics</a></li>
-    <li>Item Two</li>
-    <li>Item Three</li>
-  </ul>
-</main>
+<div class="page">
+  <header class="hero">
+    <h1>My Apps</h1>
+    <p>A collection of productivity, wellness, and puzzle apps.</p>
+  </header>
+
+  <p class="section-label">All Apps</p>
+
+  <div class="grid">
+    @for (app of apps; track app.slug) {
+      <a class="card" [routerLink]="'/' + app.slug">
+        <span class="card-badge">{{ app.category }}</span>
+        <h2>{{ app.name }}</h2>
+        <p>{{ app.description }}</p>
+        <span class="card-cta">View details →</span>
+      </a>
+    }
+  </div>
+
+  <footer>
+    &copy; 2026 · All rights reserved
+  </footer>
+</div>

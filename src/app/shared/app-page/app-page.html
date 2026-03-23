@@ -1,0 +1,11 @@
+<div class="page">
+  <a class="back" routerLink="/">← Back to Apps</a>
+
+  <span class="badge">{{ app.category }}</span>
+  <h1>{{ app.name }}</h1>
+  <p class="description">{{ app.description }}</p>
+
+  <hr class="divider" />
+
+  <app-links [appSlug]="app.slug" />
+</div>

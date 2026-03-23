@@ -1,8 +1,9 @@
-<main>
-  <a routerLink="/">← Back to Home</a>
+<div class="page">
+  <a class="back" [routerLink]="'/' + app.slug">← Back to {{ app.name }}</a>
 
+  <p class="app-label">{{ app.name }}</p>
   <h1>Privacy Policy</h1>
-  <p><em>Last updated: February 27, 2026</em></p>
+  <p class="updated">Last updated: March 2, 2026</p>
 
   <h2>1. Information We Collect</h2>
   <p>We may collect basic usage data such as pages visited and time spent on the app. We do not collect personally identifiable information unless you voluntarily provide it.</p>
@@ -18,4 +19,4 @@
 
   <h2>5. Contact</h2>
   <p>If you have any questions about this privacy policy, please reach out through the app's contact page.</p>
-</main>
+</div>
