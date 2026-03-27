@@ -1,0 +1,196 @@
+<div class="aurora-page">
+
+  <!-- Nav -->
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="nav-brand" routerLink="/">
+        <span class="material-symbols-outlined brand-icon">grid_view</span>
+        <span class="brand-name">Next Jedi</span>
+      </a>
+      <div class="nav-app">
+        <span class="nav-sep">/</span>
+        <span class="nav-app-name">Project Aurora</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="aurora-hero">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div class="coming-badge">
+            <span class="material-symbols-outlined badge-icon">schedule</span>
+            Coming Early 2026
+          </div>
+          <h1 class="aurora-title">
+            Project <span class="aurora-gradient">Aurora</span>
+          </h1>
+          <p class="aurora-desc">
+            Shape what gets built — and be first in line when it ships. Join a small circle of builders who help define the apps of tomorrow and unlock early access to every new release before the world sees it.
+          </p>
+        </div>
+        <div class="hero-right">
+          <div class="aurora-visual">
+            <div class="aurora-layer layer-1"></div>
+            <div class="aurora-layer layer-2"></div>
+            <div class="aurora-layer layer-3"></div>
+            <div class="aurora-label-wrap">
+              <span class="material-symbols-outlined aurora-star">auto_awesome</span>
+              <span class="aurora-label-text">Project Aurora</span>
+            </div>
+          </div>
+          <div class="blob blob-top"></div>
+          <div class="blob blob-bottom"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Early Access Form -->
+    <section class="access-section">
+      <div class="access-inner">
+        <div class="access-header">
+          <h2 class="access-heading">Secure Early Access</h2>
+          <p class="access-sub">Be the first to experience the future of creative collaboration.</p>
+        </div>
+        <div class="access-card">
+          @if (waitlistState === 'success') {
+            <div class="form-success">
+              <span class="material-symbols-outlined success-icon">check_circle</span>
+              <div>
+                <p class="success-title">You're in — check your inbox!</p>
+                <p class="success-desc">We've sent you a confirmation email. We'll reach out personally when early access opens.</p>
+              </div>
+            </div>
+          } @else {
+            <form class="access-form" [formGroup]="waitlistForm" (ngSubmit)="onJoinWaitlist()">
+              @if (waitlistState === 'error') {
+                <div class="form-error-banner">Something went wrong. Please try again.</div>
+              }
+              <div class="form-row-2">
+                <div class="form-field">
+                  <label class="field-label">Name</label>
+                  <input class="field-input" type="text" formControlName="name" placeholder="Design Enthusiast" />
+                  @if (wName.invalid && wName.touched) {
+                    <span class="field-error">Name is required</span>
+                  }
+                </div>
+                <div class="form-field">
+                  <label class="field-label">Email</label>
+                  <input class="field-input" type="email" formControlName="email" placeholder="hello@studio.com" />
+                  @if (wEmail.invalid && wEmail.touched) {
+                    <span class="field-error">
+                      @if (wEmail.hasError('required')) { Email is required }
+                      @else { Enter a valid email address }
+                    </span>
+                  }
+                </div>
+              </div>
+              <div class="form-field">
+                <div class="field-label-row">
+                  <label class="field-label">What feature would you like to see most?</label>
+                  <span class="field-optional">Optional</span>
+                </div>
+                <textarea class="field-textarea" rows="3" formControlName="feature" placeholder="Describe your dream feature..."></textarea>
+              </div>
+              <div class="form-actions">
+                <button class="btn-waitlist" type="submit" [disabled]="waitlistState === 'submitting'">
+                  @if (waitlistState === 'submitting') { Submitting... }
+                  @else { Join Waitlist }
+                  <span class="material-symbols-outlined">
+                    @if (waitlistState === 'submitting') { hourglass_empty }
+                    @else { arrow_forward }
+                  </span>
+                </button>
+              </div>
+            </form>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Crowdsourced Requests -->
+    <section class="requests-section">
+      <div class="requests-inner">
+        <div class="requests-left">
+          <div class="requests-sticky">
+            <span class="requests-eyebrow">Crowdsourced Innovation</span>
+            <h2 class="requests-heading">Anonymous App Requests</h2>
+            <p class="requests-desc">
+              Have an idea for a tool that doesn't exist? Tell us. No names, no logins, just pure vision. We build what the community needs.
+            </p>
+          </div>
+        </div>
+        <div class="requests-right">
+          <div class="request-card">
+            <div class="request-glow"></div>
+            @if (ideaState === 'success') {
+              <div class="form-success">
+                <span class="material-symbols-outlined success-icon">check_circle</span>
+                <div>
+                  <p class="success-title">Idea submitted!</p>
+                  <p class="success-desc">Thanks for sharing. We read every submission.</p>
+                  <button class="btn-reset" (click)="resetIdea()">Submit another idea</button>
+                </div>
+              </div>
+            } @else {
+              <form class="request-form" [formGroup]="ideaForm" (ngSubmit)="onSubmitIdea()">
+                @if (ideaState === 'error') {
+                  <div class="form-error-banner">Something went wrong. Please try again.</div>
+                }
+                <div class="form-field">
+                  <div class="field-label-row">
+                    <label class="field-label">Project Description</label>
+                    <span class="field-optional">Optional</span>
+                  </div>
+                  <textarea class="field-textarea field-textarea-lg" rows="6" formControlName="description"
+                    placeholder="I wish there was an app that could..."></textarea>
+                </div>
+                <div class="request-footer-row">
+                  <div class="anon-note">
+                    <span class="material-symbols-outlined anon-icon">lock</span>
+                    Fully anonymous submission
+                  </div>
+                  <button class="btn-submit" type="submit" [disabled]="ideaState === 'submitting'">
+                    @if (ideaState === 'submitting') { Submitting... }
+                    @else { Submit Idea }
+                  </button>
+                </div>
+              </form>
+            }
+          </div>
+          <div class="example-cards">
+            <div class="example-card">
+              <span class="material-symbols-outlined example-icon">auto_awesome</span>
+              <p class="example-quote">"A workspace that organizes my moodboards based on color palette automatically..."</p>
+            </div>
+            <div class="example-card">
+              <span class="material-symbols-outlined example-icon">history</span>
+              <p class="example-quote">"Version control for non-developers that feels like a simple undo button..."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="aurora-footer">
+    <div class="aurora-footer-inner">
+      <div class="footer-brand-row">
+        <a class="footer-brand" routerLink="/">
+          <span class="material-symbols-outlined footer-brand-icon">grid_view</span>
+          <span class="footer-brand-name">Next Jedi</span>
+        </a>
+      </div>
+      <nav class="footer-links">
+        <a class="footer-link" routerLink="/">Portfolio</a>
+        <a class="footer-link" routerLink="/team">Meet the Team</a>
+      </nav>
+      <p class="footer-copy">© 2026 Next Jedi. All rights reserved.</p>
+    </div>
+  </footer>
+
+</div>

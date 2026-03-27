@@ -8,5 +8,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('life-math-app');
+  protected readonly title = signal('nextjedi-app-portfolio');
 }

@@ -1,5 +1,5 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "dist/life-math-app/browser",
+  "outputDirectory": "dist/nextjedi-app-portfolio/browser",
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }

@@ -1,11 +1,149 @@
-<div class="page">
-  <a class="back" routerLink="/">← Back to Apps</a>
+<div
+  class="app-page"
+  [style]="{ '--accent': app.accent, '--accent-light': app.accentLight, '--accent-dark': app.accentDark }"
+>
+  <!-- Nav -->
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="nav-brand" routerLink="/">
+        <span class="material-symbols-outlined brand-icon">grid_view</span>
+        <span class="brand-name">Next Jedi</span>
+      </a>
+      <div class="nav-app">
+        <span class="nav-sep">/</span>
+        <span class="nav-app-name">{{ app.name }}</span>
+      </div>
+      <nav class="nav-global-links">
+        <a class="nav-global-link" routerLink="/aurora">Project Aurora</a>
+        <a class="nav-global-link" routerLink="/team">Meet the Team</a>
+      </nav>
+    </div>
+  </header>
 
-  <span class="badge">{{ app.category }}</span>
-  <h1>{{ app.name }}</h1>
-  <p class="description">{{ app.description }}</p>
+  <!-- Hero -->
+  <section class="app-hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <span class="hero-badge">{{ app.category }}</span>
+        <div class="hero-icon-wrap">
+          @if (app.iconImage) {
+            <img class="hero-icon-img" [src]="app.iconImage" [alt]="app.name + ' icon'" />
+          } @else {
+            <span class="material-symbols-outlined hero-icon">{{ app.icon }}</span>
+          }
+        </div>
+        <h1 class="hero-title">{{ app.taglinePrefix }} <em>{{ app.taglineAccent }}</em></h1>
+        <p class="hero-desc">{{ app.description }}</p>
+        <div class="hero-actions">
+          @if (app.playStoreUrl) {
+            <a class="btn-primary" [href]="app.playStoreUrl" target="_blank" rel="noopener noreferrer">
+              <span class="material-symbols-outlined">download</span>
+              Download Now
+            </a>
+          } @else {
+            <button class="btn-primary">
+              <span class="material-symbols-outlined">download</span>
+              Download App
+            </button>
+          }
+          <button class="btn-secondary">Learn More</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        @if (app.screenshots && app.screenshots.length > 0) {
+          <div class="phone-mockup">
+            <img class="phone-screenshot" [src]="app.screenshots[0]" [alt]="app.name + ' screenshot'" />
+          </div>
+        } @else {
+          <div class="visual-card">
+            <span class="material-symbols-outlined visual-icon">{{ app.icon }}</span>
+            <span class="visual-name">{{ app.name }}</span>
+            <span class="visual-badge">{{ app.category }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
 
-  <hr class="divider" />
+  <!-- Features -->
+  <section class="features-section">
+    <div class="section-inner">
+      <span class="section-eyebrow">Core Features</span>
+      <h2 class="section-heading">What makes it special</h2>
+      <div class="features-grid">
+        @for (feature of app.features; track feature.title) {
+          <div class="feature-card">
+            <div class="feature-icon-wrap">
+              <span class="material-symbols-outlined feature-icon">{{ feature.icon }}</span>
+            </div>
+            <h3 class="feature-title">{{ feature.title }}</h3>
+            <p class="feature-desc">{{ feature.description }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
 
-  <app-links [appSlug]="app.slug" />
+  <!-- Screenshots -->
+  @if (app.screenshots && app.screenshots.length > 0) {
+    <section class="screenshots-section">
+      <div class="section-inner">
+        <span class="section-eyebrow">App Screenshots</span>
+        <h2 class="section-heading">See it in action</h2>
+        <div class="screenshots-grid">
+          @for (shot of app.screenshots; track shot) {
+            <div class="screenshot-wrap">
+              <img class="screenshot-img" [src]="shot" [alt]="app.name + ' screenshot'" />
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="section-inner">
+      <div class="cta-box">
+        <h2 class="cta-heading">Ready to get started?</h2>
+        <p class="cta-sub">Download {{ app.name }} and start your journey today.</p>
+        <div class="cta-actions">
+          @if (app.playStoreUrl) {
+            <a class="btn-accent" [href]="app.playStoreUrl" target="_blank" rel="noopener noreferrer">
+              <span class="material-symbols-outlined">download</span>
+              Download Now
+            </a>
+          } @else {
+            <button class="btn-accent">
+              <span class="material-symbols-outlined">download</span>
+              Download Beta
+            </button>
+          }
+        </div>
+        <p class="cta-note">Available on iOS · Android · Desktop</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <div class="footer-brand-row">
+        <a class="footer-brand" routerLink="/">
+          <span class="material-symbols-outlined footer-brand-icon">grid_view</span>
+          <span class="footer-brand-name">Next Jedi</span>
+        </a>
+        <span class="footer-sep">·</span>
+        <span class="footer-app-name">{{ app.name }}</span>
+      </div>
+      <nav class="footer-links">
+        <a class="footer-link" [routerLink]="'/' + app.slug + '/privacy-policy'">Privacy Policy</a>
+        <a class="footer-link" [routerLink]="'/' + app.slug + '/support'">Support</a>
+        <a class="footer-link" [routerLink]="'/' + app.slug + '/marketing'">Marketing</a>
+        <a class="footer-link" routerLink="/aurora">Project Aurora</a>
+        <a class="footer-link" routerLink="/team">Meet the Team</a>
+      </nav>
+      <p class="footer-copy">© 2026 Next Jedi. All rights reserved.</p>
+    </div>
+  </footer>
 </div>

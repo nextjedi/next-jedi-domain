@@ -5,30 +5,51 @@
 }
 
 :root {
-  --color-primary: #4f46e5;
-  --color-primary-hover: #4338ca;
-  --color-primary-light: #eef2ff;
-  --color-bg: #f1f5f9;
+  --font-headline: 'Manrope', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --color-primary: #3525cd;
+  --color-primary-light: #e2dfff;
+
+  --color-bg: #f9f9ff;
   --color-surface: #ffffff;
-  --color-border: #e2e8f0;
-  --color-text: #0f172a;
-  --color-text-muted: #64748b;
-  --color-text-light: #94a3b8;
-  --radius-md: 12px;
-  --radius-sm: 8px;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  --max-width-lg: 960px;
+  --color-surface-low: #f1f3ff;
+  --color-surface-high: #e1e8fd;
+  --color-surface-highest: #dce2f7;
+
+  --color-border: #e2e0f0;
+  --color-text: #141b2b;
+  --color-text-muted: #464555;
+  --color-text-light: #777587;
+
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.10);
+
+  --max-width: 1120px;
   --max-width-md: 720px;
+
+  /* Per-app theme slots — overridden via [style] binding on page root */
+  --accent: #3525cd;
+  --accent-light: #e2dfff;
+  --accent-dark: #1a0fa0;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  font-family: var(--font-body);
   background: var(--color-bg);
   color: var(--color-text);
   line-height: 1.6;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -36,6 +57,199 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  color: var(--color-primary-hover);
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+  line-height: 1;
+  user-select: none;
+  display: inline-block;
+}
+
+/* ============================================================
+   Shared Nav
+   ============================================================ */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(249, 249, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.nav-brand:hover { text-decoration: none; }
+
+.brand-icon {
+  font-size: 22px;
+  color: var(--color-primary);
+}
+
+.brand-name {
+  font-family: var(--font-headline);
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
+}
+
+.nav-app {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.nav-sep {
+  color: var(--color-border);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.nav-app-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav-app-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.nav-app-link:hover { color: var(--accent); }
+
+.nav-global-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-left: auto;
+}
+
+.nav-global-link {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+
+.nav-global-link:hover {
+  color: var(--color-primary);
+}
+
+.nav-page-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* ============================================================
+   Shared App Footer (app-page + sub-pages)
+   ============================================================ */
+.app-footer {
+  background: var(--color-surface-highest);
+  border-top: 1px solid var(--color-border);
+  padding: 40px 32px;
+}
+
+.app-footer .footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.footer-brand:hover { text-decoration: none; }
+
+.footer-brand-icon {
+  font-size: 18px;
+  color: var(--color-primary);
+}
+
+.footer-brand-name {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+.footer-sep {
+  color: var(--color-border);
+  font-size: 1rem;
+}
+
+.footer-app-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.footer-links {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-link {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-text-light);
+  transition: color 0.15s;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.footer-copy {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  letter-spacing: 0.02em;
 }

@@ -1,23 +1,75 @@
-<div class="page">
-  <header class="hero">
-    <h1>My Apps</h1>
-    <p>A collection of productivity, wellness, and puzzle apps.</p>
+<div class="portfolio">
+  <!-- Nav -->
+  <header class="site-nav">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <span class="material-symbols-outlined brand-icon">rocket_launch</span>
+        <span class="brand-name">Next Jedi</span>
+      </div>
+      <nav class="home-nav-links">
+        <a class="home-nav-link" routerLink="/aurora">Project Aurora</a>
+        <a class="home-nav-link" routerLink="/team">Meet the Team</a>
+      </nav>
+    </div>
   </header>
 
-  <p class="section-label">All Apps</p>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <span class="hero-eyebrow">App Portfolio · 2026</span>
+      <h1 class="hero-title">Crafting apps for <em>focused, joyful living.</em></h1>
+      <p class="hero-sub">
+        Productivity tools, wellness companions, and puzzle games — built for the way you actually
+        want to work and play.
+      </p>
+    </div>
+  </section>
 
-  <div class="grid">
-    @for (app of apps; track app.slug) {
-      <a class="card" [routerLink]="'/' + app.slug">
-        <span class="card-badge">{{ app.category }}</span>
-        <h2>{{ app.name }}</h2>
-        <p>{{ app.description }}</p>
-        <span class="card-cta">View details →</span>
-      </a>
-    }
-  </div>
+  <!-- Apps -->
+  <section class="apps-section">
+    <div class="apps-inner">
+      <p class="section-label">All Apps</p>
+      <div class="bento-grid">
+        @for (app of apps; track app.slug) {
+          <a
+            class="bento-card"
+            [routerLink]="'/' + app.slug"
+            [style]="{ '--accent': app.accent, '--accent-light': app.accentLight, '--accent-dark': app.accentDark }"
+          >
+            <div class="card-header">
+              <div class="card-icon-wrap">
+                <span class="material-symbols-outlined card-icon">{{ app.icon }}</span>
+              </div>
+              <span class="card-badge">{{ app.category }}</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-name">{{ app.name }}</h2>
+              <p class="card-desc">{{ app.description }}</p>
+            </div>
+            <div class="card-cta-row">
+              <span class="card-cta">
+                View app <span class="material-symbols-outlined cta-arrow">arrow_forward</span>
+              </span>
+            </div>
+          </a>
+        }
+      </div>
+    </div>
+  </section>
 
-  <footer>
-    &copy; 2026 · All rights reserved
+  <!-- Footer -->
+  <footer class="home-footer">
+    <div class="hf-inner">
+      <div class="hf-brand">
+        <span class="material-symbols-outlined hf-icon">rocket_launch</span>
+        <span class="hf-name">Next Jedi</span>
+      </div>
+      <nav class="footer-links">
+        <a class="footer-link" routerLink="/aurora">Project Aurora</a>
+        <a class="footer-link" routerLink="/team">Meet the Team</a>
+      </nav>
+      <p class="footer-copy">© 2026 Next Jedi. All rights reserved.</p>
+    </div>
   </footer>
 </div>

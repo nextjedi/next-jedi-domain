@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "life-math-app": {
+    "nextjedi-app-portfolio": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {
@@ -81,10 +81,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "life-math-app:build:production"
+              "buildTarget": "nextjedi-app-portfolio:build:production"
             },
             "development": {
-              "buildTarget": "life-math-app:build:development"
+              "buildTarget": "nextjedi-app-portfolio:build:development"
             }
           },
           "defaultConfiguration": "development"

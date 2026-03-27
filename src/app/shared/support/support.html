@@ -1,8 +1,56 @@
-<div class="page">
-  <a class="back" [routerLink]="'/' + app.slug">← Back to {{ app.name }}</a>
+<div
+  class="sub-page"
+  [style]="{ '--accent': app.accent, '--accent-light': app.accentLight, '--accent-dark': app.accentDark }"
+>
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="nav-brand" routerLink="/">
+        <span class="material-symbols-outlined brand-icon">grid_view</span>
+        <span class="brand-name">Next Jedi</span>
+      </a>
+      <div class="nav-app">
+        <span class="nav-sep">/</span>
+        <a class="nav-app-link" [routerLink]="'/' + app.slug">{{ app.name }}</a>
+        <span class="nav-sep">/</span>
+        <span class="nav-page-name">Support</span>
+      </div>
+      <nav class="nav-global-links">
+        <a class="nav-global-link" routerLink="/aurora">Project Aurora</a>
+        <a class="nav-global-link" routerLink="/team">Meet the Team</a>
+      </nav>
+    </div>
+  </header>
 
-  <p class="app-label">{{ app.name }}</p>
-  <h1>Support</h1>
+  <main class="sub-content">
+    <div class="sub-inner">
+      <a class="back-link" [routerLink]="'/' + app.slug">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Back to {{ app.name }}
+      </a>
+      <p class="sub-eyebrow">{{ app.name }}</p>
+      <h1>Support</h1>
+      <p>Support page coming soon.</p>
+    </div>
+  </main>
 
-  <p>Support page coming soon.</p>
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <div class="footer-brand-row">
+        <a class="footer-brand" routerLink="/">
+          <span class="material-symbols-outlined footer-brand-icon">grid_view</span>
+          <span class="footer-brand-name">Next Jedi</span>
+        </a>
+        <span class="footer-sep">·</span>
+        <span class="footer-app-name">{{ app.name }}</span>
+      </div>
+      <nav class="footer-links">
+        <a class="footer-link" [routerLink]="'/' + app.slug + '/privacy-policy'">Privacy Policy</a>
+        <a class="footer-link" [routerLink]="'/' + app.slug + '/support'">Support</a>
+        <a class="footer-link" [routerLink]="'/' + app.slug + '/marketing'">Marketing</a>
+        <a class="footer-link" routerLink="/aurora">Project Aurora</a>
+        <a class="footer-link" routerLink="/team">Meet the Team</a>
+      </nav>
+      <p class="footer-copy">© 2026 Next Jedi. All rights reserved.</p>
+    </div>
+  </footer>
 </div>

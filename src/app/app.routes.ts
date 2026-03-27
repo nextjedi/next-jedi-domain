@@ -4,6 +4,8 @@ import { AppPage } from './shared/app-page/app-page';
 import { SharedPrivacyPolicy } from './shared/privacy-policy/privacy-policy';
 import { SharedSupport } from './shared/support/support';
 import { SharedMarketing } from './shared/marketing/marketing';
+import { AuroraPage } from './aurora/aurora';
+import { TeamPage } from './team/team';
 import { APPS } from './apps.config';
 
 function appRoutes(slug: string): Routes {
@@ -17,5 +19,7 @@ function appRoutes(slug: string): Routes {
 
 export const routes: Routes = [
   { path: '', component: Home },
+  { path: 'aurora', component: AuroraPage },
+  { path: 'team', component: TeamPage },
   ...APPS.flatMap(app => appRoutes(app.slug)),
 ];
