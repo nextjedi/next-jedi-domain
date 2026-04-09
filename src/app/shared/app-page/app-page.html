@@ -35,18 +35,53 @@
         <h1 class="hero-title">{{ app.taglinePrefix }} <em>{{ app.taglineAccent }}</em></h1>
         <p class="hero-desc">{{ app.description }}</p>
         <div class="hero-actions">
-          @if (app.playStoreUrl) {
-            <a class="btn-primary" [href]="app.playStoreUrl" target="_blank" rel="noopener noreferrer">
-              <span class="material-symbols-outlined">download</span>
-              Download Now
-            </a>
-          } @else {
-            <button class="btn-primary">
-              <span class="material-symbols-outlined">download</span>
-              Download App
-            </button>
+
+          <!-- Android button -->
+          @if (app.android) {
+            @if (app.android.stage === 'production') {
+              <a class="btn-platform btn-android" [href]="app.android.storeUrl" target="_blank" rel="noopener noreferrer">
+                <span class="material-symbols-outlined">android</span>
+                Download for Android
+              </a>
+            } @else if (app.android.stage === 'early-access') {
+              <button class="btn-platform btn-android" (click)="showAndroidPanel = true">
+                <span class="material-symbols-outlined">android</span>
+                Get Early Access
+              </button>
+            } @else {
+              <button class="btn-platform btn-coming-soon" (click)="showAndroidPanel = true">
+                <span class="material-symbols-outlined">android</span>
+                Android · Coming Soon
+              </button>
+            }
           }
-          <button class="btn-secondary">Learn More</button>
+
+          <!-- iOS button -->
+          @if (app.ios) {
+            @if (app.ios.stage === 'production') {
+              <a class="btn-platform btn-ios" [href]="app.ios.storeUrl" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                Download for iOS
+              </a>
+            } @else if (app.ios.stage === 'early-access') {
+              <button class="btn-platform btn-ios" (click)="showIosPanel = true">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                iOS Early Access
+              </button>
+            } @else {
+              <button class="btn-platform btn-coming-soon" (click)="showIosPanel = true">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                iOS · Coming Soon
+              </button>
+            }
+          }
+
         </div>
       </div>
       <div class="hero-visual">
@@ -108,42 +143,80 @@
         <h2 class="cta-heading">Ready to get started?</h2>
         <p class="cta-sub">Download {{ app.name }} and start your journey today.</p>
         <div class="cta-actions">
-          @if (app.playStoreUrl) {
-            <a class="btn-accent" [href]="app.playStoreUrl" target="_blank" rel="noopener noreferrer">
-              <span class="material-symbols-outlined">download</span>
-              Download Now
-            </a>
-          } @else {
-            <button class="btn-accent">
-              <span class="material-symbols-outlined">download</span>
-              Download Beta
-            </button>
+
+          <!-- CTA Android -->
+          @if (app.android) {
+            @if (app.android.stage === 'production') {
+              <a class="btn-accent" [href]="app.android.storeUrl" target="_blank" rel="noopener noreferrer">
+                <span class="material-symbols-outlined">android</span>
+                Download for Android
+              </a>
+            } @else if (app.android.stage === 'early-access') {
+              <button class="btn-accent" (click)="showAndroidPanel = true">
+                <span class="material-symbols-outlined">android</span>
+                Android Early Access
+              </button>
+            } @else {
+              <button class="btn-accent-secondary" (click)="showAndroidPanel = true">
+                <span class="material-symbols-outlined">android</span>
+                Android · Coming Soon
+              </button>
+            }
           }
+
+          <!-- CTA iOS -->
+          @if (app.ios) {
+            @if (app.ios.stage === 'production') {
+              <a class="btn-accent-secondary" [href]="app.ios.storeUrl" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                Download for iOS
+              </a>
+            } @else if (app.ios.stage === 'early-access') {
+              <button class="btn-accent-secondary" (click)="showIosPanel = true">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                iOS Early Access
+              </button>
+            } @else {
+              <button class="btn-accent-secondary" (click)="showIosPanel = true">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                iOS Coming Soon
+              </button>
+            }
+          }
+
         </div>
-        <p class="cta-note">Available on iOS · Android · Desktop</p>
+        <p class="cta-note">Early access · Android &amp; iOS</p>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="app-footer">
-    <div class="footer-inner">
-      <div class="footer-brand-row">
-        <a class="footer-brand" routerLink="/">
-          <span class="material-symbols-outlined footer-brand-icon">grid_view</span>
-          <span class="footer-brand-name">Next Jedi</span>
-        </a>
-        <span class="footer-sep">·</span>
-        <span class="footer-app-name">{{ app.name }}</span>
-      </div>
-      <nav class="footer-links">
-        <a class="footer-link" [routerLink]="'/' + app.slug + '/privacy-policy'">Privacy Policy</a>
-        <a class="footer-link" [routerLink]="'/' + app.slug + '/support'">Support</a>
-        <a class="footer-link" [routerLink]="'/' + app.slug + '/marketing'">Marketing</a>
-        <a class="footer-link" routerLink="/aurora">Project Aurora</a>
-        <a class="footer-link" routerLink="/team">Meet the Team</a>
-      </nav>
-      <p class="footer-copy">© 2026 Next Jedi. All rights reserved.</p>
-    </div>
-  </footer>
+  <!-- Download / Early Access Panels -->
+  @if (showAndroidPanel && app.android) {
+    <app-early-access-panel
+      platform="android"
+      [stage]="app.android.stage"
+      [storeUrl]="app.android.storeUrl ?? ''"
+      [appName]="app.name"
+      [appIcon]="app.icon"
+      (closed)="showAndroidPanel = false"
+    />
+  }
+  @if (showIosPanel && app.ios) {
+    <app-early-access-panel
+      platform="ios"
+      [stage]="app.ios.stage"
+      [storeUrl]="app.ios.storeUrl ?? ''"
+      [appName]="app.name"
+      [appIcon]="app.icon"
+      (closed)="showIosPanel = false"
+    />
+  }
+
+  <app-footer [appName]="app.name" [appSlug]="app.slug" />
 </div>

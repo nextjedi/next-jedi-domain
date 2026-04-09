@@ -1,11 +1,13 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AuroraService } from './aurora.service';
+import { SeoService } from '../seo.service';
+import { FooterComponent } from '../shared/footer/footer';
 
 @Component({
   selector: 'app-aurora',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, FooterComponent],
   templateUrl: './aurora.html',
   styles: [
     `
@@ -529,9 +531,19 @@ import { AuroraService } from './aurora.service';
     `,
   ],
 })
-export class AuroraPage {
+export class AuroraPage implements OnInit {
   private fb = inject(FormBuilder);
   private aurora = inject(AuroraService);
+  private seo = inject(SeoService);
+
+  ngOnInit(): void {
+    this.seo.set({
+      title: 'Project Aurora — Shape What We Build Next',
+      description: 'Join Project Aurora and help shape the next generation of Next Jedi apps. Request features, vote on ideas, and get early access before anyone else.',
+      path: '/aurora',
+      keywords: 'Project Aurora, early access, app feedback, Next Jedi, feature requests',
+    });
+  }
 
   waitlistForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],

@@ -6,6 +6,7 @@ import { SharedSupport } from './shared/support/support';
 import { SharedMarketing } from './shared/marketing/marketing';
 import { AuroraPage } from './aurora/aurora';
 import { TeamPage } from './team/team';
+import { MindfulTennisPage } from './mindful-tennis/mindful-tennis';
 import { APPS } from './apps.config';
 
 function appRoutes(slug: string): Routes {
@@ -21,5 +22,13 @@ export const routes: Routes = [
   { path: '', component: Home },
   { path: 'aurora', component: AuroraPage },
   { path: 'team', component: TeamPage },
-  ...APPS.flatMap(app => appRoutes(app.slug)),
+
+  // Mindful Tennis — custom rich page
+  { path: 'mindful-tennis', component: MindfulTennisPage, data: { appSlug: 'mindful-tennis' } },
+  { path: 'mindful-tennis/privacy-policy', component: SharedPrivacyPolicy, data: { appSlug: 'mindful-tennis' } },
+  { path: 'mindful-tennis/support', component: SharedSupport, data: { appSlug: 'mindful-tennis' } },
+  { path: 'mindful-tennis/marketing', component: SharedMarketing, data: { appSlug: 'mindful-tennis' } },
+
+  // All other apps use the generic AppPage template
+  ...APPS.filter(app => app.slug !== 'mindful-tennis').flatMap(app => appRoutes(app.slug)),
 ];

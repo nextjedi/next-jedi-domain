@@ -1,0 +1,179 @@
+<div
+  class="mt-page"
+  [style]="{ '--accent': app.accent, '--accent-light': app.accentLight, '--accent-dark': app.accentDark }"
+>
+  <!-- Nav -->
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="nav-brand" routerLink="/">
+        <img src="apps/mindful-tennis/appicon.png" alt="Mindful Tennis" class="mt-app-icon" />
+        <span class="brand-name">Mindful Tennis</span>
+      </a>
+      <nav class="nav-global-links">
+        <a class="nav-global-link" href="#features">Features</a>
+        <a class="nav-global-link" href="#how-it-works">How It Works</a>
+        <a class="nav-global-link" href="#dashboard">Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="mt-hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <span class="hero-badge">{{ app.category }}</span>
+        <div class="hero-icon-wrap">
+          <span class="material-symbols-outlined hero-icon">{{ app.icon }}</span>
+        </div>
+        <h1 class="hero-title">{{ app.taglinePrefix }} <em>{{ app.taglineAccent }}</em></h1>
+        <p class="hero-desc">
+          Track your sessions, rate all aspects of your game, and follow your performance trends over time.
+          Built offline-first, with a mindful approach to tennis improvement.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-platform btn-coming-soon" (click)="showAndroidPanel = true">
+            <span class="material-symbols-outlined">android</span>
+            Android · Coming Soon
+          </button>
+          <button class="btn-platform btn-coming-soon" (click)="showIosPanel = true">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
+            iOS · Coming Soon
+          </button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="phone-mockup">
+          <video class="phone-video" autoplay loop muted playsinline preload="none">
+            <source src="/apps/mindful-tennis/dashboard.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features-section" id="features">
+    <div class="section-inner">
+      <span class="section-eyebrow">Core Features</span>
+      <h2 class="section-heading">Everything your game deserves</h2>
+      <div class="features-grid">
+        @for (f of features; track f.title) {
+          <div class="feature-card">
+            <div class="feature-icon-wrap">
+              <span class="material-symbols-outlined feature-icon">{{ f.icon }}</span>
+            </div>
+            <h3 class="feature-title">{{ f.title }}</h3>
+            <p class="feature-desc">{{ f.description }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-section" id="how-it-works">
+    <div class="section-inner">
+      <span class="section-eyebrow">How It Works</span>
+      <h2 class="section-heading">Three steps to a sharper game</h2>
+      <div class="steps-grid">
+        @for (step of howItWorks; track step.number) {
+          <div class="step">
+            <div class="step-header">
+              <div class="step-number">{{ step.number }}</div>
+              <h3 class="step-title">{{ step.title }}</h3>
+            </div>
+            <p class="step-desc">{{ step.description }}</p>
+            <div class="step-video-wrap">
+              <video class="step-video" autoplay loop muted playsinline preload="none">
+                <source [src]="step.video" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Screenshots / Dashboard -->
+  <section class="screenshots-section" id="dashboard">
+    <div class="section-inner">
+      <span class="section-eyebrow">App Screenshots</span>
+      <h2 class="section-heading">See it in action</h2>
+      <div class="screenshots-grid">
+        @for (shot of screenshots; track shot.src) {
+          <div class="screenshot-wrap">
+            <img class="screenshot-img" [src]="shot.src" [alt]="shot.alt" loading="lazy" />
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Promise -->
+  <section class="promise-section">
+    <div class="section-inner">
+      <span class="section-eyebrow">Our Promise</span>
+      <h2 class="section-heading">Why Mindful Tennis is different</h2>
+      <div class="promise-grid">
+        @for (p of promises; track p.title) {
+          <div class="promise-card">
+            <div class="promise-icon-wrap">
+              <span class="material-symbols-outlined promise-icon">{{ p.icon }}</span>
+            </div>
+            <h3 class="promise-title">{{ p.title }}</h3>
+            <p class="promise-desc">{{ p.description }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="section-inner">
+      <div class="cta-box">
+        <h2 class="cta-heading">Ready to track your game?</h2>
+        <p class="cta-sub">Join the waitlist and be first to know when Mindful Tennis launches.</p>
+        <div class="cta-actions">
+          <button class="btn-cta-ghost" (click)="showAndroidPanel = true">
+            <span class="material-symbols-outlined">android</span>
+            Android · Coming Soon
+          </button>
+          <button class="btn-cta-ghost" (click)="showIosPanel = true">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
+            iOS · Coming Soon
+          </button>
+        </div>
+        <p class="cta-note">Coming to Android &amp; iOS</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Early Access Panels -->
+  @if (showAndroidPanel && app.android) {
+    <app-early-access-panel
+      platform="android"
+      [stage]="app.android.stage"
+      [storeUrl]="app.android.storeUrl ?? ''"
+      [appName]="app.name"
+      [appIcon]="app.icon"
+      (closed)="showAndroidPanel = false"
+    />
+  }
+  @if (showIosPanel && app.ios) {
+    <app-early-access-panel
+      platform="ios"
+      [stage]="app.ios.stage"
+      [storeUrl]="app.ios.storeUrl ?? ''"
+      [appName]="app.name"
+      [appIcon]="app.icon"
+      (closed)="showIosPanel = false"
+    />
+  }
+
+  <app-footer [appName]="app.name" [appSlug]="app.slug" />
+</div>

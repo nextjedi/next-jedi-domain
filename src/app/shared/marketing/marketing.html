@@ -29,28 +29,9 @@
       </a>
       <p class="sub-eyebrow">{{ app.name }}</p>
       <h1>Marketing</h1>
-      <p>Marketing page coming soon.</p>
+      <p>Marketing assets and resources for {{ app.name }} are being prepared.</p>
     </div>
   </main>
 
-  <footer class="app-footer">
-    <div class="footer-inner">
-      <div class="footer-brand-row">
-        <a class="footer-brand" routerLink="/">
-          <span class="material-symbols-outlined footer-brand-icon">grid_view</span>
-          <span class="footer-brand-name">Next Jedi</span>
-        </a>
-        <span class="footer-sep">·</span>
-        <span class="footer-app-name">{{ app.name }}</span>
-      </div>
-      <nav class="footer-links">
-        <a class="footer-link" [routerLink]="'/' + app.slug + '/privacy-policy'">Privacy Policy</a>
-        <a class="footer-link" [routerLink]="'/' + app.slug + '/support'">Support</a>
-        <a class="footer-link" [routerLink]="'/' + app.slug + '/marketing'">Marketing</a>
-        <a class="footer-link" routerLink="/aurora">Project Aurora</a>
-        <a class="footer-link" routerLink="/team">Meet the Team</a>
-      </nav>
-      <p class="footer-copy">© 2026 Next Jedi. All rights reserved.</p>
-    </div>
-  </footer>
+  <app-footer [appName]="app.name" [appSlug]="app.slug" />
 </div>
