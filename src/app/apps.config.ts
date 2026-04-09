@@ -198,6 +198,7 @@ export const APPS: AppConfig[] = [
     description: 'Bring mental clarity and mindfulness to your tennis game and performance.',
     category: 'Wellness',
     icon: 'sports_tennis',
+    iconImage: '/apps/mindful-tennis/icon.jpg',
     android: { stage: 'coming-soon' },
     ios: { stage: 'coming-soon' },
     accent: '#059669',
