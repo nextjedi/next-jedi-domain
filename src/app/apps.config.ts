@@ -4,6 +4,13 @@ export interface AppFeature {
   description: string;
 }
 
+export type AppStage = 'coming-soon' | 'early-access' | 'production';
+
+export interface PlatformConfig {
+  stage: AppStage;
+  storeUrl?: string; // required for early-access and production
+}
+
 export interface AppConfig {
   slug: string;
   name: string;
@@ -12,7 +19,8 @@ export interface AppConfig {
   icon: string;
   iconImage?: string;
   screenshots?: string[];
-  playStoreUrl?: string;
+  android?: PlatformConfig;
+  ios?: PlatformConfig;
   accent: string;
   accentLight: string;
   accentDark: string;
@@ -25,32 +33,40 @@ export const APPS: AppConfig[] = [
   {
     slug: 'flowtimer',
     name: 'Flow Timer',
-    description: 'Stay in the zone with focused work sessions and smart break reminders.',
+    description:
+      'Pixel-art focus timer. Start your session from the home screen widget or Wear OS tile — no sign-ups, no ads, 100% offline.',
     category: 'Productivity',
-    icon: 'timer',
-    accent: '#d97706',
-    accentLight: '#fef3c7',
-    accentDark: '#78350f',
-    taglinePrefix: 'Stay in',
-    taglineAccent: 'the zone.',
+    icon: 'hourglass_top',
+    android: {
+      stage: 'early-access',
+      storeUrl: 'https://play.google.com/store/apps/details?id=com.ashutosh.flowtimer',
+    },
+    ios: {
+      stage: 'coming-soon',
+    },
+    accent: '#4A90D9',
+    accentLight: '#dbeafe',
+    accentDark: '#1e3a8a',
+    taglinePrefix: 'Get in',
+    taglineAccent: 'flow.',
     features: [
       {
-        icon: 'filter_center_focus',
-        title: 'Deep Focus Mode',
+        icon: 'hourglass_empty',
+        title: 'Gesture-Driven UI',
         description:
-          'Customizable work intervals that adapt to your natural rhythm and block digital distractions.',
+          'Tap the pixel-art hourglass to start or pause. Long-press to reset. No buttons, no clutter — just you and your work.',
       },
       {
-        icon: 'self_improvement',
-        title: 'Smart Break Reminders',
+        icon: 'widgets',
+        title: 'Widget & Wear OS',
         description:
-          'Science-backed break intervals prevent mental fatigue and keep you performing at your peak.',
+          'Start, pause, and reset your timer from the home screen widget or Wear OS tile — without ever opening the app.',
       },
       {
-        icon: 'analytics',
-        title: 'Focus Analytics',
+        icon: 'bar_chart',
+        title: 'Focus Dashboard',
         description:
-          'Track sessions, streaks, and energy patterns to discover when you do your best work.',
+          'Visualise your focus history with daily bar charts and a GitHub-style heatmap to track your momentum over time.',
       },
     ],
   },
@@ -60,6 +76,8 @@ export const APPS: AppConfig[] = [
     description: 'Boost your output with the classic Pomodoro technique — simple, proven, effective.',
     category: 'Productivity',
     icon: 'alarm',
+    android: { stage: 'coming-soon' },
+    ios: { stage: 'coming-soon' },
     accent: '#dc2626',
     accentLight: '#fee2e2',
     accentDark: '#7f1d1d',
@@ -87,30 +105,41 @@ export const APPS: AppConfig[] = [
   {
     slug: 'sudoku',
     name: 'Sudoku',
-    description: 'A clean, offline Sudoku experience built for all platforms.',
+    description:
+      'Sudoku: A Brain Gym is a clean, distraction-free Sudoku app for iPhone and iPad. Pick your difficulty, start a new game in one tap, and build a daily puzzle habit — the app tracks your streak every time you play.',
     category: 'Puzzle',
     icon: 'grid_on',
+    iconImage: '/apps/sudoku/icon.png',
+    screenshots: [
+      '/apps/sudoku/screenshot-home.png',
+      '/apps/sudoku/screenshot-game.png',
+      '/apps/sudoku/screenshot-stats.png',
+    ],
+    android: { stage: 'coming-soon' },
+    ios: { stage: 'coming-soon' },
     accent: '#2563eb',
     accentLight: '#dbeafe',
     accentDark: '#1e3a8a',
-    taglinePrefix: 'Pure logic,',
-    taglineAccent: 'pure pleasure.',
+    taglinePrefix: 'Train your mind,',
+    taglineAccent: 'one puzzle at a time.',
     features: [
       {
-        icon: 'wifi_off',
-        title: 'Fully Offline',
-        description: 'No internet required. Play puzzles anywhere, anytime — on any platform or device.',
+        icon: 'local_fire_department',
+        title: 'Build a Daily Habit',
+        description:
+          'A streak badge tracks how many days in a row you\'ve played. One tap to start — no account, no setup, no noise.',
       },
       {
         icon: 'signal_cellular_alt',
-        title: 'Multiple Difficulties',
-        description: 'Beginner to expert — always find a challenge perfectly matched to your skill level.',
+        title: 'Easy to Expert',
+        description:
+          'Choose Easy (46 clues), Medium (36), or Hard (26). Always find a challenge that matches where you are today.',
       },
       {
-        icon: 'lightbulb',
-        title: 'Smart Hints',
+        icon: 'bar_chart',
+        title: 'Track Your Journey',
         description:
-          "Stuck? Use hints sparingly to learn techniques without spoiling the joy of solving.",
+          'Streak, games played, win rate, and best solve times — all in one stats screen. Watch yourself improve over time.',
       },
     ],
   },
@@ -125,7 +154,11 @@ export const APPS: AppConfig[] = [
       '/apps/life-mathematics/screenshot-dark.jpg',
       '/apps/life-mathematics/screenshot-light.jpg',
     ],
-    playStoreUrl: 'https://play.google.com/apps/testing/com.nextjedi.lifemathematics',
+    android: {
+      stage: 'early-access',
+      storeUrl: 'https://play.google.com/apps/testing/com.nextjedi.lifemathematics',
+    },
+    ios: { stage: 'coming-soon' },
     accent: '#7c3aed',
     accentLight: '#ede9fe',
     accentDark: '#4c1d95',
@@ -158,6 +191,8 @@ export const APPS: AppConfig[] = [
     description: 'Bring mental clarity and mindfulness to your tennis game and performance.',
     category: 'Wellness',
     icon: 'sports_tennis',
+    android: { stage: 'coming-soon' },
+    ios: { stage: 'coming-soon' },
     accent: '#059669',
     accentLight: '#d1fae5',
     accentDark: '#064e3b',
