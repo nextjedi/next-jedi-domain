@@ -5,6 +5,7 @@ export interface AppFeature {
 }
 
 export type AppStage = 'coming-soon' | 'early-access' | 'production';
+export type AppPhase = 'development' | 'review' | 'launched';
 
 export interface PlatformConfig {
   stage: AppStage;
@@ -16,6 +17,7 @@ export interface AppConfig {
   name: string;
   description: string;
   category: string;
+  phase: AppPhase;
   icon: string;
   iconImage?: string;
   screenshots?: string[];
@@ -33,6 +35,7 @@ export const APPS: AppConfig[] = [
   {
     slug: 'flowtimer',
     name: 'Flow Timer',
+    phase: 'development',
     description:
       'Pixel-art focus timer. Start your session from the home screen widget or Wear OS tile — no sign-ups, no ads, 100% offline.',
     category: 'Productivity',
@@ -73,6 +76,7 @@ export const APPS: AppConfig[] = [
   {
     slug: 'pomo-timer',
     name: 'Pomo Timer',
+    phase: 'development',
     description: 'Boost your output with the classic Pomodoro technique — simple, proven, effective.',
     category: 'Productivity',
     icon: 'alarm',
@@ -105,6 +109,7 @@ export const APPS: AppConfig[] = [
   {
     slug: 'sudoku',
     name: 'Sudoku',
+    phase: 'launched',
     description:
       'Sudoku: A Brain Gym is a clean, distraction-free Sudoku app for iPhone and iPad. Pick your difficulty, start a new game in one tap, and build a daily puzzle habit — the app tracks your streak every time you play.',
     category: 'Puzzle',
@@ -146,6 +151,7 @@ export const APPS: AppConfig[] = [
   {
     slug: 'life-mathematics',
     name: 'Life Mathematics',
+    phase: 'development',
     description: 'A beautiful everyday calculator for bills, tips, budgets, and beyond.',
     category: 'Tools',
     icon: 'calculate',
@@ -188,6 +194,7 @@ export const APPS: AppConfig[] = [
   {
     slug: 'mindful-tennis',
     name: 'Mindful Tennis',
+    phase: 'review',
     description: 'Bring mental clarity and mindfulness to your tennis game and performance.',
     category: 'Wellness',
     icon: 'sports_tennis',

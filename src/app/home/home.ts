@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { APPS } from '../apps.config';
+import { SeoService } from '../seo.service';
+import { FooterComponent } from '../shared/footer/footer';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink],
+  imports: [RouterLink, FooterComponent],
   templateUrl: './home.html',
   styles: [
     `
@@ -67,42 +69,90 @@ import { APPS } from '../apps.config';
         line-height: 1.75;
       }
 
-      /* ---- Apps section ---- */
-      .apps-section {
-        flex: 1;
-        padding: 0 32px 80px;
+      /* ---- Phase sections ---- */
+      .phase-section {
+        padding: 0 32px 64px;
       }
-      .apps-inner {
+      .phase-section:first-of-type {
+        padding-top: 8px;
+      }
+      .phase-inner {
         max-width: var(--max-width);
         margin: 0 auto;
       }
-      .section-label {
-        font-size: 0.7rem;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--color-text-light);
+      .phase-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
         margin-bottom: 20px;
       }
+      .phase-title {
+        font-family: var(--font-headline);
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--color-text);
+        letter-spacing: -0.01em;
+      }
+      .phase-count {
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: var(--color-text-light);
+        margin-left: auto;
+        letter-spacing: 0.04em;
+      }
 
-      /* ---- Bento grid ---- */
-      .bento-grid {
+      /* ---- Phase pills ---- */
+      .phase-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 4px 11px 4px 8px;
+        border-radius: var(--radius-full);
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        flex-shrink: 0;
+      }
+      .pill-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .pill-launched {
+        background: #dcfce7;
+        color: #15803d;
+      }
+      .pill-launched .pill-dot {
+        background: #16a34a;
+        box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.25);
+        animation: pulse-green 2s ease-in-out infinite;
+      }
+      .pill-review {
+        background: #fef9c3;
+        color: #854d0e;
+      }
+      .pill-review .pill-dot {
+        background: #ca8a04;
+      }
+      .pill-dev {
+        background: #e0f2fe;
+        color: #0369a1;
+      }
+      .pill-dev .pill-dot {
+        background: #0284c7;
+      }
+
+      /* ---- App grid ---- */
+      .app-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 16px;
       }
-      .bento-grid > :nth-child(1) {
-        grid-column: span 2;
-      }
-      .bento-grid > :nth-child(4) {
-        grid-column: span 2;
-      }
-      .bento-grid > :nth-child(5) {
-        grid-column: 1 / -1;
-      }
 
       /* ---- Cards ---- */
-      .bento-card {
+      .app-card {
         display: flex;
         flex-direction: column;
         background: var(--color-surface);
@@ -118,48 +168,17 @@ import { APPS } from '../apps.config';
           transform 0.2s ease;
         cursor: pointer;
       }
-      .bento-card:hover {
+      .app-card:hover {
         border-color: var(--accent);
-        box-shadow:
-          0 0 0 1px var(--accent),
-          var(--shadow-md);
+        box-shadow: 0 0 0 1px var(--accent), var(--shadow-md);
         transform: translateY(-2px);
         text-decoration: none;
       }
-
-      /* Wide cards */
-      .bento-grid > :nth-child(1),
-      .bento-grid > :nth-child(4) {
-        min-height: 260px;
+      .card-dev {
+        opacity: 0.82;
       }
-
-      /* Full-width last card — horizontal grid layout */
-      .bento-grid > :nth-child(5) {
-        display: grid;
-        grid-template-columns: auto 1fr auto;
-        align-items: center;
-        column-gap: 32px;
-        row-gap: 0;
-        min-height: 140px;
-        padding: 28px 36px;
-      }
-      .bento-grid > :nth-child(5) .card-header {
-        margin-bottom: 0;
-      }
-      .bento-grid > :nth-child(5) .card-badge {
-        display: none;
-      }
-      .bento-grid > :nth-child(5) .card-body {
-        margin-bottom: 0;
-      }
-      .bento-grid > :nth-child(5) .card-name {
-        font-size: 1.5rem;
-      }
-      .bento-grid > :nth-child(5) .card-desc {
-        margin-bottom: 0;
-      }
-      .bento-grid > :nth-child(5) .card-cta-row {
-        margin-top: 0;
+      .card-dev:hover {
+        opacity: 1;
       }
 
       .card-header {
@@ -178,10 +197,16 @@ import { APPS } from '../apps.config';
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
+        overflow: hidden;
       }
       .card-icon {
         font-size: 26px;
         color: var(--accent-dark);
+      }
+      .card-icon-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
       .card-badge {
         font-size: 0.68rem;
@@ -224,14 +249,10 @@ import { APPS } from '../apps.config';
         color: var(--accent);
         transition: gap 0.2s;
       }
-      .bento-card:hover .card-cta {
-        gap: 10px;
-      }
-      .cta-arrow {
-        font-size: 18px;
-      }
+      .app-card:hover .card-cta { gap: 10px; }
+      .cta-arrow { font-size: 18px; }
 
-      /* ---- Home nav links ---- */
+      /* ---- Nav links ---- */
       .home-nav-links {
         display: flex;
         align-items: center;
@@ -245,96 +266,51 @@ import { APPS } from '../apps.config';
         text-decoration: none;
         transition: color 0.15s;
       }
-      .home-nav-link:hover {
-        color: var(--color-primary);
-      }
+      .home-nav-link:hover { color: var(--color-primary); }
 
-      /* ---- Home footer ---- */
-      .home-footer {
-        background: var(--color-surface-highest);
-        border-top: 1px solid var(--color-border);
-        padding: 28px 32px;
-      }
-      .hf-inner {
-        max-width: var(--max-width);
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-      }
-      .hf-brand {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .hf-icon {
-        font-size: 18px;
-        color: var(--color-primary);
-      }
-      .hf-name {
-        font-family: var(--font-headline);
-        font-weight: 700;
-        font-size: 0.95rem;
-        color: var(--color-text);
+      /* ---- Animations ---- */
+      @keyframes pulse-green {
+        0%, 100% { box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.25); }
+        50%       { box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.12); }
       }
 
       /* ---- Responsive ---- */
       @media (max-width: 860px) {
-        .bento-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-        .bento-grid > :nth-child(1) {
-          grid-column: span 2;
-        }
-        .bento-grid > :nth-child(4) {
-          grid-column: span 2;
-        }
-        .bento-grid > :nth-child(5) {
-          grid-column: span 2;
-          display: flex;
-          flex-direction: column;
-        }
-        .bento-grid > :nth-child(5) .card-header {
-          margin-bottom: 20px;
-        }
-        .bento-grid > :nth-child(5) .card-badge {
-          display: block;
-        }
-        .bento-grid > :nth-child(5) .card-body {
-          margin-bottom: 20px;
-        }
-        .bento-grid > :nth-child(5) .card-cta-row {
-          margin-top: auto;
-        }
+        .app-grid { grid-template-columns: repeat(2, 1fr); }
       }
-
       @media (max-width: 560px) {
-        .hero {
-          padding: 60px 20px 52px;
-        }
-        .apps-section {
-          padding: 0 20px 60px;
-        }
-        .home-footer {
-          padding: 28px 20px;
-        }
-        .bento-grid {
-          grid-template-columns: 1fr;
-        }
-        .bento-grid > :nth-child(1),
-        .bento-grid > :nth-child(4),
-        .bento-grid > :nth-child(5) {
-          grid-column: span 1;
-        }
-        .bento-grid > :nth-child(5) {
-          display: flex;
-          flex-direction: column;
-        }
+        .hero { padding: 60px 20px 52px; }
+        .phase-section { padding: 0 20px 48px; }
+        .app-grid { grid-template-columns: 1fr; }
       }
     `,
   ],
 })
-export class Home {
-  protected apps = APPS;
+export class Home implements OnInit {
+  private seo = inject(SeoService);
+  protected launchedApps = APPS.filter(a => a.phase === 'launched');
+  protected reviewApps   = APPS.filter(a => a.phase === 'review');
+  protected devApps      = APPS.filter(a => a.phase === 'development');
+
+  ngOnInit(): void {
+    this.seo.set({
+      title: 'Next Jedi — Beautiful Indie Apps for Android & iOS',
+      description: 'Next Jedi builds beautiful, offline-first mobile apps for Android and iOS. Explore Flow Timer, Life Mathematics, Sudoku, and more.',
+      path: '/',
+      keywords: 'mobile apps, Android, iOS, indie app studio, Flow Timer, Life Mathematics, Sudoku, Pomodoro',
+    });
+
+    this.seo.setJsonLd({
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: 'Next Jedi',
+      url: 'https://nextjedi.com',
+      description: 'Beautiful, offline-first mobile apps for Android and iOS.',
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: 'https://nextjedi.com/?q={search_term_string}',
+        'query-input': 'required name=search_term_string',
+      },
+    });
+  }
 }

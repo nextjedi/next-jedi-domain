@@ -1,10 +1,20 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { APPS, AppConfig } from '../../apps.config';
+import { EarlyAccessPanelComponent } from '../download-panel/download-panel';
+import { FooterComponent } from '../footer/footer';
+import { SeoService, SITE_URL } from '../../seo.service';
+
+const CATEGORY_SCHEMA: Record<string, string> = {
+  'Productivity': 'ProductivityApplication',
+  'Puzzle': 'GameApplication',
+  'Tools': 'UtilitiesApplication',
+  'Wellness': 'HealthApplication',
+};
 
 @Component({
   selector: 'app-shared-app-page',
-  imports: [RouterLink],
+  imports: [RouterLink, EarlyAccessPanelComponent, FooterComponent],
   templateUrl: './app-page.html',
   styles: [
     `
@@ -109,25 +119,42 @@ import { APPS, AppConfig } from '../../apps.config';
         opacity: 0.88;
         transform: translateY(-1px);
       }
-      .btn-secondary {
+      .btn-platform {
         display: inline-flex;
         align-items: center;
-        padding: 13px 26px;
-        background: transparent;
-        color: var(--accent);
+        gap: 8px;
+        padding: 13px 22px;
         font-weight: 600;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         font-family: var(--font-body);
-        border: 2px solid var(--accent);
         border-radius: var(--radius-full);
         cursor: pointer;
-        transition:
-          background 0.2s,
-          transform 0.2s;
+        transition: opacity 0.2s, transform 0.2s;
+        white-space: nowrap;
+        border: none;
       }
-      .btn-secondary:hover {
-        background: var(--accent-light);
+      .btn-platform:hover {
+        opacity: 0.88;
         transform: translateY(-1px);
+      }
+      .btn-platform .material-symbols-outlined,
+      .btn-platform svg {
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+      .btn-android {
+        background: var(--accent);
+        color: #fff;
+      }
+      .btn-ios {
+        background: var(--color-surface);
+        color: var(--color-text);
+        border: 1.5px solid var(--color-border);
+      }
+      .btn-coming-soon {
+        background: transparent;
+        color: var(--color-text-muted);
+        border: 1.5px solid var(--color-border);
       }
 
       /* Phone mockup (right side of hero when screenshots exist) */
@@ -366,7 +393,32 @@ import { APPS, AppConfig } from '../../apps.config';
         position: relative;
         z-index: 1;
         margin-bottom: 20px;
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
       }
+      .btn-accent-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 16px 32px;
+        background: transparent;
+        color: rgba(255,255,255,0.7);
+        font-weight: 600;
+        font-size: 0.95rem;
+        font-family: var(--font-body);
+        border: 1.5px solid rgba(255,255,255,0.2);
+        border-radius: var(--radius-full);
+        cursor: pointer;
+        transition: border-color 0.2s, color 0.2s, transform 0.2s;
+      }
+      .btn-accent-secondary:hover {
+        border-color: rgba(255,255,255,0.5);
+        color: #fff;
+        transform: translateY(-1px);
+      }
+      .btn-accent-secondary svg { flex-shrink: 0; }
       .btn-accent {
         display: inline-flex;
         align-items: center;
@@ -435,8 +487,12 @@ import { APPS, AppConfig } from '../../apps.config';
     `,
   ],
 })
-export class AppPage {
+export class AppPage implements OnInit {
   private route = inject(ActivatedRoute);
+  private seo = inject(SeoService);
+
+  protected showAndroidPanel = false;
+  protected showIosPanel = false;
 
   protected app: AppConfig = (() => {
     const slug = this.route.snapshot.data['appSlug'] ?? '';
@@ -452,8 +508,39 @@ export class AppPage {
         accentDark: '#1a0fa0',
         taglinePrefix: '',
         taglineAccent: slug,
+        phase: 'development',
         features: [],
       }
     );
   })();
+
+  ngOnInit(): void {
+    const { app } = this;
+    const ogImage = app.screenshots?.[0]
+      ? `${SITE_URL}${app.screenshots[0]}`
+      : undefined;
+
+    this.seo.set({
+      title: `${app.name} — ${app.description.split('.')[0]}`,
+      description: app.description,
+      path: `/${app.slug}`,
+      image: ogImage,
+      keywords: `${app.name}, ${app.category} app, Android, iOS, Next Jedi`,
+    });
+
+    this.seo.setJsonLd({
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: app.name,
+      description: app.description,
+      applicationCategory: CATEGORY_SCHEMA[app.category] ?? 'MobileApplication',
+      operatingSystem: [app.android ? 'Android' : null, app.ios ? 'iOS' : null]
+        .filter(Boolean)
+        .join(', '),
+      url: `${SITE_URL}/${app.slug}`,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      author: { '@type': 'Organization', name: 'Next Jedi', url: SITE_URL },
+      ...(app.android?.storeUrl ? { downloadUrl: app.android.storeUrl } : {}),
+    });
+  }
 }
