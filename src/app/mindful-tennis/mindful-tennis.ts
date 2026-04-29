@@ -101,6 +101,11 @@ import { SeoService, SITE_URL } from '../seo.service';
       color: var(--color-text-muted);
       border: 1.5px solid var(--color-border);
     }
+    .btn-store-live {
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+    }
 
     /* Phone mockup with video */
     .hero-visual { display: flex; justify-content: center; align-items: center; }
@@ -182,10 +187,15 @@ import { SeoService, SITE_URL } from '../seo.service';
     .steps-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
+      column-gap: 32px;
+      row-gap: 16px;
       margin-top: 8px;
     }
-    .step { display: flex; flex-direction: column; gap: 16px; }
+    .step {
+      display: grid;
+      grid-row: span 3;
+      grid-template-rows: subgrid;
+    }
     .step-header { display: flex; align-items: center; gap: 14px; }
     .step-number {
       width: 44px;
@@ -215,7 +225,6 @@ import { SeoService, SITE_URL } from '../seo.service';
       border-radius: 24px;
       box-shadow: var(--shadow-lg), 0 0 0 6px #1a1a1a;
       overflow: hidden;
-      margin-top: 8px;
     }
     .step-video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -411,18 +420,21 @@ export class MindfulTennisPage implements OnInit {
       title: 'Start a Session',
       description: 'Set your focus point for the day, hit start, and play. The timer keeps running in the background with a persistent notification.',
       video: '/apps/mindful-tennis/start-session.mp4',
+      poster: '/apps/mindful-tennis/screenshot-new-session.jpeg',
     },
     {
       number: '2',
       title: 'Rate Your Game',
       description: 'After the session, rate all 8 aspects of your game, log the set scores, and add any notes or reflections.',
       video: '/apps/mindful-tennis/feedback.mp4',
+      poster: '/apps/mindful-tennis/screenshot-rate-session.jpeg',
     },
     {
       number: '3',
       title: 'Track Your Progress',
       description: 'Open the dashboard to see your performance trends, aspect averages, and how you\'re doing against each opponent over time.',
       video: '/apps/mindful-tennis/dashboard.mp4',
+      poster: '/apps/mindful-tennis/screenshot-dashboard.jpeg',
     },
   ];
 
@@ -444,11 +456,6 @@ export class MindfulTennisPage implements OnInit {
       icon: 'block',
       title: 'No Ads. Ever.',
       description: 'Your focus session is sacred. No banners, no interstitials, no distractions — ever.',
-    },
-    {
-      icon: 'all_inclusive',
-      title: 'No Subscription',
-      description: 'Pay once, own it forever. We believe in fair pricing, not recurring fees for core features.',
     },
     {
       icon: 'wifi_off',
@@ -481,7 +488,7 @@ export class MindfulTennisPage implements OnInit {
       name: 'Mindful Tennis',
       description: 'Track your tennis sessions, rate 8 aspects of your game, and follow your performance trends over time.',
       applicationCategory: 'HealthApplication',
-      operatingSystem: 'Android',
+      operatingSystem: 'Android, iOS',
       url: `${SITE_URL}/mindful-tennis`,
       offers: { '@type': 'Offer', price: '5', priceCurrency: 'USD' },
       author: { '@type': 'Organization', name: 'Next Jedi', url: SITE_URL },

@@ -129,7 +129,7 @@ import { FooterComponent } from '../shared/footer/footer';
         display: flex;
         flex-direction: row;
         gap: 36px;
-        align-items: flex-start;
+        align-items: center;
         box-shadow: 0 2px 24px rgba(20, 27, 43, 0.06);
       }
       .card-glow {
@@ -162,6 +162,43 @@ import { FooterComponent } from '../shared/footer/footer';
       }
       .member-card:hover .member-photo-img {
         transform: scale(1.04);
+      }
+      /* gradient tint overlay */
+      .member-photo-wrap::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          155deg,
+          transparent 35%,
+          rgba(53, 37, 205, 0.5) 100%
+        );
+        opacity: 0.6;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+        z-index: 1;
+      }
+      .member-card:hover .member-photo-wrap::after {
+        opacity: 1;
+      }
+      /* shimmer sweep on hover */
+      .member-photo-wrap::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          110deg,
+          transparent 20%,
+          rgba(255, 255, 255, 0.12) 50%,
+          transparent 80%
+        );
+        transform: translateX(-100%);
+        pointer-events: none;
+        transition: transform 0.6s ease;
+        z-index: 2;
+      }
+      .member-card:hover .member-photo-wrap::before {
+        transform: translateX(100%);
       }
 
       /* ---- Member Info ---- */
@@ -292,7 +329,7 @@ import { FooterComponent } from '../shared/footer/footer';
       .secondary-top {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
+        align-items: center;
         margin-bottom: 20px;
       }
       .member-photo-round {
@@ -426,7 +463,7 @@ import { FooterComponent } from '../shared/footer/footer';
         .team-hero { padding: 72px 20px 56px; }
         .cards-section { padding: 0 20px 64px; }
         .member-card { padding: 24px 20px; }
-        .member-primary { flex-direction: column; }
+        .member-primary { flex-direction: column; align-items: center; }
         .member-photo-rect { width: 100%; height: 220px; }
         .vision-section { padding: 64px 20px; }
         .vision-pillars { flex-direction: column; gap: 12px; }
