@@ -109,7 +109,7 @@ export const APPS: AppConfig[] = [
   {
     slug: 'sudoku',
     name: 'Sudoku',
-    phase: 'launched',
+    phase: 'development',
     description:
       'Sudoku: A Brain Gym is a clean, distraction-free Sudoku app for iPhone and iPad. Pick your difficulty, start a new game in one tap, and build a daily puzzle habit — the app tracks your streak every time you play.',
     category: 'Puzzle',

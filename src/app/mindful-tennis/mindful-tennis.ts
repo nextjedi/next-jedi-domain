@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { APPS } from '../apps.config';
 import { EarlyAccessPanelComponent } from '../shared/download-panel/download-panel';
@@ -366,6 +366,7 @@ import { SeoService, SITE_URL } from '../seo.service';
       .features-grid, .steps-grid, .promise-grid { grid-template-columns: 1fr; }
       .screenshots-grid { gap: 16px; }
       .screenshot-wrap { width: 160px; height: 312px; }
+      .step-video-wrap { width: 160px; margin: 0 auto; }
     }
     @media (max-width: 560px) {
       .mt-hero, .features-section, .how-section,
@@ -374,12 +375,20 @@ import { SeoService, SITE_URL } from '../seo.service';
     }
   `],
 })
-export class MindfulTennisPage implements OnInit {
+export class MindfulTennisPage implements OnInit, AfterViewInit, OnDestroy {
   private seo = inject(SeoService);
 
   protected app = APPS.find(a => a.slug === 'mindful-tennis')!;
   protected showAndroidPanel = false;
   protected showIosPanel = false;
+  protected activeSection: string | null = null;
+  private observer: IntersectionObserver | null = null;
+  private videoObserver: IntersectionObserver | null = null;
+
+  scrollToSection(id: string, event: Event): void {
+    event.preventDefault();
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  }
 
   protected features = [
     {
@@ -473,6 +482,51 @@ export class MindfulTennisPage implements OnInit {
       description: 'Every update is shaped by what real players ask for. You play it, we build it.',
     },
   ];
+
+  ngAfterViewInit(): void {
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            this.activeSection = entry.target.id;
+          }
+        }
+      },
+      { rootMargin: '-20% 0px -65% 0px' }
+    );
+    ['features', 'how-it-works', 'dashboard'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) this.observer!.observe(el);
+    });
+
+    const setupVideoObserver = () => {
+      this.videoObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            const video = entry.target as HTMLVideoElement;
+            if (entry.isIntersecting) {
+              video.play().catch(() => {});
+            } else {
+              video.pause();
+            }
+          });
+        },
+        { threshold: 0.25 }
+      );
+      document.querySelectorAll<HTMLVideoElement>('.step-video').forEach(v => this.videoObserver!.observe(v));
+    };
+
+    if (document.readyState === 'complete') {
+      setupVideoObserver();
+    } else {
+      window.addEventListener('load', setupVideoObserver, { once: true });
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.observer?.disconnect();
+    this.videoObserver?.disconnect();
+  }
 
   ngOnInit(): void {
     this.seo.set({

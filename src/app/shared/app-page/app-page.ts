@@ -484,6 +484,7 @@ const CATEGORY_SCHEMA: Record<string, string> = {
           padding: 48px 28px;
         }
       }
+
     `,
   ],
 })

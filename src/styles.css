@@ -159,8 +159,13 @@ a {
   white-space: nowrap;
 }
 
-.nav-global-link:hover {
+.nav-global-link:hover,
+.nav-global-link.active {
   color: var(--color-primary);
+}
+
+@media (max-width: 640px) {
+  .nav-global-links { display: none; }
 }
 
 .nav-page-name {

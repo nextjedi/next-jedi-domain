@@ -10,9 +10,9 @@
         <span class="brand-name">Mindful Tennis</span>
       </a>
       <nav class="nav-global-links">
-        <a class="nav-global-link" href="#features">Features</a>
-        <a class="nav-global-link" href="#how-it-works">How It Works</a>
-        <a class="nav-global-link" href="#dashboard">Dashboard</a>
+        <a class="nav-global-link" [class.active]="activeSection === 'features'" href="#features" (click)="scrollToSection('features', $event)">Features</a>
+        <a class="nav-global-link" [class.active]="activeSection === 'how-it-works'" href="#how-it-works" (click)="scrollToSection('how-it-works', $event)">How It Works</a>
+        <a class="nav-global-link" [class.active]="activeSection === 'dashboard'" href="#dashboard" (click)="scrollToSection('dashboard', $event)">Dashboard</a>
       </nav>
     </div>
   </header>
@@ -86,7 +86,7 @@
             </div>
             <p class="step-desc">{{ step.description }}</p>
             <div class="step-video-wrap">
-              <video class="step-video" autoplay loop muted playsinline preload="metadata" [poster]="step.poster">
+              <video class="step-video" loop muted playsinline preload="none" [poster]="step.poster">
                 <source [src]="step.video" type="video/mp4">
               </video>
             </div>
