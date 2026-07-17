@@ -87,7 +87,7 @@ export const SUPPORT_CONTENT: Record<string, AppSupportContent> = {
       },
       {
         question: 'How do I delete my account and all data?',
-        answer: 'Email us at hello@nextjedi.com from your registered email address and request account deletion. We will permanently delete your account and all associated data within 30 days.',
+        answer: 'Email us at arunabh@nextjedi.com from your registered email address and request account deletion. We will permanently delete your account and all associated data within 30 days.',
       },
     ],
   },

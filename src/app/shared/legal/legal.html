@@ -1,7 +1,4 @@
-<div
-  class="sub-page"
-  [style]="{ '--accent': app.accent, '--accent-light': app.accentLight, '--accent-dark': app.accentDark }"
->
+<div class="sub-page">
   <header class="site-nav">
     <div class="nav-inner">
       <a class="nav-brand" routerLink="/">
@@ -10,9 +7,7 @@
       </a>
       <div class="nav-app">
         <span class="nav-sep">/</span>
-        <a class="nav-app-link" [routerLink]="'/' + app.slug">{{ app.name }}</a>
-        <span class="nav-sep">/</span>
-        <span class="nav-page-name">Privacy Policy</span>
+        <span class="nav-page-name">{{ doc?.title }}</span>
       </div>
       <nav class="nav-global-links">
         <a class="nav-global-link" routerLink="/aurora">Project Aurora</a>
@@ -23,18 +18,18 @@
 
   <main class="sub-content">
     <div class="sub-inner">
-      <a class="back-link" [routerLink]="'/' + app.slug">
+      <a class="back-link" routerLink="/">
         <span class="material-symbols-outlined">arrow_back</span>
-        Back to {{ app.name }}
+        Back to Next Jedi
       </a>
-      <p class="sub-eyebrow">{{ app.name }}</p>
-      <h1>Privacy Policy</h1>
 
-      @if (content) {
-        <p class="updated">Last updated: {{ content.lastUpdated }}</p>
-        <p>{{ content.intro }}</p>
+      @if (doc) {
+        <p class="sub-eyebrow">{{ doc.eyebrow }}</p>
+        <h1>{{ doc.title }}</h1>
+        <p class="updated">Last updated: {{ doc.lastUpdated }}</p>
+        <p>{{ doc.intro }}</p>
 
-        @for (section of content.sections; track section.heading) {
+        @for (section of doc.sections; track section.heading) {
           <h2>{{ section.heading }}</h2>
           @for (para of section.paragraphs; track $index) {
             <p>{{ para }}</p>
@@ -51,12 +46,11 @@
           }
         }
       } @else {
-        <p class="updated">Coming soon.</p>
-        <p>The privacy policy for {{ app.name }} will be published here before the app launches.</p>
-        <p>Questions in the meantime? Email us at <a href="mailto:arunabh@nextjedi.com">arunabh&#64;nextjedi.com</a>.</p>
+        <h1>Not found</h1>
+        <p>This page could not be found. <a routerLink="/">Return home</a>.</p>
       }
     </div>
   </main>
 
-  <app-footer [appName]="app.name" [appSlug]="app.slug" />
+  <app-footer />
 </div>

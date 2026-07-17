@@ -4,6 +4,7 @@ import { AppPage } from './shared/app-page/app-page';
 import { SharedPrivacyPolicy } from './shared/privacy-policy/privacy-policy';
 import { SharedSupport } from './shared/support/support';
 import { SharedMarketing } from './shared/marketing/marketing';
+import { SharedLegal } from './shared/legal/legal';
 import { AuroraPage } from './aurora/aurora';
 import { TeamPage } from './team/team';
 import { MindfulTennisPage } from './mindful-tennis/mindful-tennis';
@@ -22,6 +23,12 @@ export const routes: Routes = [
   { path: '', component: Home },
   { path: 'aurora', component: AuroraPage },
   { path: 'team', component: TeamPage },
+
+  // Business-level legal pages (required for Razorpay KYC — present on every domain)
+  { path: 'terms', component: SharedLegal, data: { legalDoc: 'terms' } },
+  { path: 'refund', component: SharedLegal, data: { legalDoc: 'refund' } },
+  { path: 'shipping', component: SharedLegal, data: { legalDoc: 'shipping' } },
+  { path: 'contact', component: SharedLegal, data: { legalDoc: 'contact' } },
 
   // Mindful Tennis — custom rich page
   { path: 'mindful-tennis', component: MindfulTennisPage, data: { appSlug: 'mindful-tennis' } },

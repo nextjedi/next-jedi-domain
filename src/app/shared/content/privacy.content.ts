@@ -71,7 +71,7 @@ export const PRIVACY_CONTENT: Record<string, AppPrivacyContent> = {
       },
       {
         heading: '8. Contact',
-        paragraphs: ['Questions about this policy? Reach us at hello@nextjedi.com.'],
+        paragraphs: ['Questions about this policy? Reach us at arunabh@nextjedi.com.'],
       },
     ],
   },
@@ -114,7 +114,7 @@ export const PRIVACY_CONTENT: Record<string, AppPrivacyContent> = {
       },
       {
         heading: '6. Contact',
-        paragraphs: ['Questions? Reach us at hello@nextjedi.com.'],
+        paragraphs: ['Questions? Reach us at arunabh@nextjedi.com.'],
       },
     ],
   },
@@ -156,7 +156,7 @@ export const PRIVACY_CONTENT: Record<string, AppPrivacyContent> = {
       },
       {
         heading: '6. Contact',
-        paragraphs: ['Questions? Reach us at hello@nextjedi.com.'],
+        paragraphs: ['Questions? Reach us at arunabh@nextjedi.com.'],
       },
     ],
   },
@@ -197,7 +197,7 @@ export const PRIVACY_CONTENT: Record<string, AppPrivacyContent> = {
       },
       {
         heading: '6. Contact',
-        paragraphs: ['Questions? Reach us at hello@nextjedi.com.'],
+        paragraphs: ['Questions? Reach us at arunabh@nextjedi.com.'],
       },
     ],
   },
@@ -261,7 +261,7 @@ export const PRIVACY_CONTENT: Record<string, AppPrivacyContent> = {
       {
         heading: '8. Your Rights',
         paragraphs: [
-          'You can request to access, export, or permanently delete all data associated with your account at any time by contacting us at hello@nextjedi.com. We will respond within 30 days.',
+          'You can request to access, export, or permanently delete all data associated with your account at any time by contacting us at arunabh@nextjedi.com. We will respond within 30 days.',
         ],
       },
       {
@@ -280,7 +280,7 @@ export const PRIVACY_CONTENT: Record<string, AppPrivacyContent> = {
       },
       {
         heading: '12. Contact',
-        paragraphs: ['Questions? Reach us at hello@nextjedi.com.'],
+        paragraphs: ['Questions? Reach us at arunabh@nextjedi.com.'],
       },
     ],
   },
