@@ -1,0 +1,83 @@
+<div
+  class="sub-page"
+  [style]="{ '--accent': app.accent, '--accent-light': app.accentLight, '--accent-dark': app.accentDark }"
+>
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="nav-brand" routerLink="/">
+        <span class="material-symbols-outlined brand-icon">grid_view</span>
+        <span class="brand-name">Next Jedi</span>
+      </a>
+      <div class="nav-app">
+        <span class="nav-sep">/</span>
+        <a class="nav-app-link" [routerLink]="'/' + app.slug">{{ app.name }}</a>
+        <span class="nav-sep">/</span>
+        <span class="nav-page-name">Delete Account</span>
+      </div>
+      <nav class="nav-global-links">
+        <a class="nav-global-link" routerLink="/aurora">Project Aurora</a>
+        <a class="nav-global-link" routerLink="/team">Meet the Team</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="sub-content">
+    <div class="sub-inner">
+      <a class="back-link" [routerLink]="'/' + app.slug">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Back to {{ app.name }}
+      </a>
+
+      @if (content) {
+        <p class="sub-eyebrow">{{ content.listingName }}</p>
+        <h1>Delete your account and data</h1>
+        <p class="updated">Last updated: {{ content.lastUpdated }}</p>
+        <p>{{ content.intro }}</p>
+
+        <div class="email-card">
+          <p>
+            <strong>No app?</strong> Email <strong>{{ content.supportEmail }}</strong> from your
+            account's email address with the subject <strong>"{{ content.emailSubject }}"</strong>.
+            We delete it within 30 days.
+          </p>
+          <a class="email-btn" [href]="mailto">
+            <span class="material-symbols-outlined">mail</span>
+            Email a deletion request
+          </a>
+        </div>
+
+        @for (section of content.sections; track section.heading) {
+          <h2>{{ section.heading }}</h2>
+          @for (para of section.paragraphs; track $index) {
+            <p>{{ para }}</p>
+          }
+          @if (section.steps) {
+            <ol>
+              @for (step of section.steps; track $index) {
+                <li>{{ step }}</li>
+              }
+            </ol>
+          }
+          @for (para of section.afterSteps ?? []; track $index) {
+            <p>{{ para }}</p>
+          }
+          @if (section.bullets) {
+            <ul>
+              @for (bullet of section.bullets; track $index) {
+                <li>
+                  @if (bullet.label) {<strong>{{ bullet.label }}</strong>}
+                  {{ bullet.text }}
+                </li>
+              }
+            </ul>
+          }
+        }
+      } @else {
+        <h1>Delete your account</h1>
+        <p>To delete your {{ app.name }} account and data, email us at <a href="mailto:support@nextjedi.com">support&#64;nextjedi.com</a> from your account's email address.</p>
+      }
+    </div>
+  </main>
+
+  <app-footer [appName]="app.name" [appSlug]="app.slug" />
+</div>

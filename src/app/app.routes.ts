@@ -5,6 +5,7 @@ import { SharedPrivacyPolicy } from './shared/privacy-policy/privacy-policy';
 import { SharedSupport } from './shared/support/support';
 import { SharedMarketing } from './shared/marketing/marketing';
 import { SharedLegal } from './shared/legal/legal';
+import { SharedDeleteAccount } from './shared/delete-account/delete-account';
 import { AuroraPage } from './aurora/aurora';
 import { TeamPage } from './team/team';
 import { MindfulTennisPage } from './mindful-tennis/mindful-tennis';
@@ -35,6 +36,12 @@ export const routes: Routes = [
   { path: 'mindful-tennis/privacy-policy', component: SharedPrivacyPolicy, data: { appSlug: 'mindful-tennis' } },
   { path: 'mindful-tennis/support', component: SharedSupport, data: { appSlug: 'mindful-tennis' } },
   { path: 'mindful-tennis/marketing', component: SharedMarketing, data: { appSlug: 'mindful-tennis' } },
+
+  // Mindful Journal — store listings point at /privacy and /delete-account (Play requires a
+  // web deletion URL). /privacy-policy stays as an alias so the shared footer link still works.
+  { path: 'mindful-journal/privacy', component: SharedPrivacyPolicy, data: { appSlug: 'mindful-journal', canonicalPath: '/mindful-journal/privacy' } },
+  { path: 'mindful-journal/privacy-policy', redirectTo: 'mindful-journal/privacy', pathMatch: 'full' },
+  { path: 'mindful-journal/delete-account', component: SharedDeleteAccount, data: { appSlug: 'mindful-journal' } },
 
   // All other apps use the generic AppPage template
   ...APPS.filter(app => app.slug !== 'mindful-tennis').flatMap(app => appRoutes(app.slug)),

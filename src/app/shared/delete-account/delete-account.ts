@@ -1,14 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { APPS, AppConfig } from '../../apps.config';
-import { PRIVACY_CONTENT, AppPrivacyContent } from '../content/privacy.content';
+import { DELETE_ACCOUNT_CONTENT, AppDeleteAccountContent } from '../content/delete-account.content';
 import { FooterComponent } from '../footer/footer';
 import { SeoService } from '../../seo.service';
 
 @Component({
-  selector: 'app-shared-privacy-policy',
+  selector: 'app-shared-delete-account',
   imports: [RouterLink, FooterComponent],
-  templateUrl: './privacy-policy.html',
+  templateUrl: './delete-account.html',
   styles: [`
     .sub-page { min-height: 100vh; display: flex; flex-direction: column; }
     .sub-content { flex: 1; padding: 64px 32px 80px; }
@@ -34,12 +34,26 @@ import { SeoService } from '../../seo.service';
       color: var(--color-text); margin-top: 32px; margin-bottom: 8px;
     }
     p { color: var(--color-text-muted); line-height: 1.7; font-size: 0.95rem; }
-    ul { padding-left: 20px; margin: 8px 0 0; }
+    p + p { margin-top: 8px; }
+    ul, ol { padding-left: 20px; margin: 8px 0 0; }
     li { color: var(--color-text-muted); line-height: 1.7; font-size: 0.95rem; margin-bottom: 4px; }
+    ol + p { margin-top: 12px; }
     a[href^="mailto"] { color: var(--accent); }
+    .email-card {
+      margin-top: 24px; padding: 20px 24px; border-radius: 12px;
+      background: var(--accent-light); color: var(--accent-dark);
+    }
+    .email-card p { color: var(--accent-dark); }
+    .email-card strong { font-weight: 700; }
+    .email-btn {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 12px;
+      padding: 10px 18px; border-radius: 999px; background: var(--accent);
+      color: #fff !important; font-weight: 600; font-size: 0.9rem; text-decoration: none;
+    }
+    .email-btn .material-symbols-outlined { font-size: 18px; }
   `],
 })
-export class SharedPrivacyPolicy implements OnInit {
+export class SharedDeleteAccount implements OnInit {
   private route = inject(ActivatedRoute);
   private seo = inject(SeoService);
 
@@ -54,13 +68,17 @@ export class SharedPrivacyPolicy implements OnInit {
     );
   })();
 
-  protected content: AppPrivacyContent | null = PRIVACY_CONTENT[this.app.slug] ?? null;
+  protected content: AppDeleteAccountContent | null = DELETE_ACCOUNT_CONTENT[this.app.slug] ?? null;
+
+  protected mailto = this.content
+    ? `mailto:${this.content.supportEmail}?subject=${encodeURIComponent(this.content.emailSubject)}`
+    : '';
 
   ngOnInit(): void {
     this.seo.set({
-      title: `${this.app.name} Privacy Policy`,
-      description: `Privacy policy for ${this.app.name} by Next Jedi. See what data the app collects and how it is used.`,
-      path: this.route.snapshot.data['canonicalPath'] ?? `/${this.app.slug}/privacy-policy`,
+      title: `Delete your ${this.app.name} account`,
+      description: `How to delete your ${this.app.name} account and data, in the app or by email, and what is deleted.`,
+      path: `/${this.app.slug}/delete-account`,
     });
   }
 }
