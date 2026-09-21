@@ -10,6 +10,7 @@ const CATEGORY_SCHEMA: Record<string, string> = {
   'Puzzle': 'GameApplication',
   'Tools': 'UtilitiesApplication',
   'Wellness': 'HealthApplication',
+  'Lifestyle': 'LifestyleApplication',
 };
 
 @Component({

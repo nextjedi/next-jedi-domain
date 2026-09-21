@@ -6,6 +6,8 @@ export interface SupportFaq {
 export interface AppSupportContent {
   intro: string;
   faqs: SupportFaq[];
+  /** Support address shown on the page. Defaults to arunabh@nextjedi.com. */
+  contactEmail?: string;
 }
 
 export const SUPPORT_CONTENT: Record<string, AppSupportContent> = {
@@ -116,6 +118,37 @@ export const SUPPORT_CONTENT: Record<string, AppSupportContent> = {
       {
         question: 'Will it work offline?',
         answer: 'Yes — Sudoku will be fully offline with no accounts required.',
+      },
+    ],
+  },
+
+  'karagre': {
+    intro: 'Need help with Karagre? Most questions are answered below. For anything else, email us at support@nextjedi.com — every message is read by the people who build the app.',
+    contactEmail: 'support@nextjedi.com',
+    faqs: [
+      {
+        question: 'The alarm didn\'t ring.',
+        answer: 'Open the Reliability centre in the app and follow its checks: allow exact alarms and notifications for Karagre, and turn off battery optimisation for Karagre. Some phones stop alarms from apps that are battery-optimised, so this last step matters.',
+      },
+      {
+        question: 'I can\'t speak aloud. How do I end the alarm?',
+        answer: 'Tap "Can\'t speak" on the ringing screen to use Read & tap: read the verse line by line and tap as you go. It ends the alarm without the microphone.',
+      },
+      {
+        question: 'My recitation isn\'t being recognised.',
+        answer: 'Recognition is deliberately lenient, so you don\'t need perfect pronunciation. Recite the full verse clearly at a normal pace, with the phone reasonably close. If it still won\'t accept it, use "Can\'t speak" (Read & tap) to end the alarm.',
+      },
+      {
+        question: 'How do I restore Kul on a new phone?',
+        answer: 'Go to Settings in Karagre and tap Restore purchase. Make sure you are signed in to the same Google Play or Apple account you used to buy Kul.',
+      },
+      {
+        question: 'How do I share my voice with family?',
+        answer: 'In Kul, record your voice reciting the verse, then share it. Karagre creates a .karagre file and opens your phone\'s share sheet, so you can send it through WhatsApp or any app you like. Your family opens the file in Karagre. Voices your family sends you are always free to use.',
+      },
+      {
+        question: 'Does Karagre send my voice anywhere?',
+        answer: 'No. Your recitation is checked on your phone and is never stored off the device or sent anywhere. Karagre has no account and no servers. See the privacy policy for details.',
       },
     ],
   },

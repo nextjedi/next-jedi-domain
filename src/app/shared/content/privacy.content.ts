@@ -285,4 +285,95 @@ export const PRIVACY_CONTENT: Record<string, AppPrivacyContent> = {
     ],
   },
 
+  // Karagre — store title "Karagre: Mantra Alarm Clock", com.nextjedi.karagre.
+  // Served at /karagre/privacy-policy. Every statement here must stay true of the shipped app:
+  // no INTERNET permission, no backend, no analytics or crash SDK, on-device speech only.
+  // Store labels: Play "No data collected", App Store "Data Not Collected".
+  'karagre': {
+    lastUpdated: 'September 21, 2026',
+    intro: 'This policy covers Karagre ("Karagre: Mantra Alarm Clock"), an alarm clock for Android and iOS built by NextJedi ("we", "us"). In short: Karagre does not collect any personal data. It has no account, no servers and no analytics, and everything it handles stays on your device. This policy takes effect on 21 September 2026.',
+    sections: [
+      {
+        heading: '1. We Do Not Collect Your Data',
+        paragraphs: [
+          'Karagre has no account and no sign-up, and we run no backend or servers for it. The Android app does not even request the INTERNET permission, so it has no way to send data to us or to anyone else. We cannot see who uses the app, when, or how.',
+          'The store privacy labels reflect this: "No data collected" on Google Play and "Data Not Collected" on the App Store.',
+        ],
+      },
+      {
+        heading: '2. Microphone and Your Recitation',
+        paragraphs: [
+          'When an alarm rings, or when you choose to practise the verse, Karagre listens through the microphone to check that you have recited it. This speech recognition runs entirely on your device. The audio and the resulting text are used only for that check, are never stored off the device, and are never sent anywhere. The microphone is used only while an alarm is ringing or while you are practising.',
+          'If you would rather not speak aloud, you can use "Can\'t speak" (Read & tap) to end the alarm without the microphone.',
+        ],
+      },
+      {
+        heading: '3. What Stays on Your Device',
+        paragraphs: ['The app keeps the following only in its own storage on your device:'],
+        bullets: [
+          { label: 'Alarms and settings', text: '— the alarms you create and your preferences.' },
+          { label: 'Your mornings', text: '— the history of mornings you have kept (Nitya).' },
+          { label: 'Family voice recordings', text: '— if you use Kul, the recordings you make and the ones your family sends you.' },
+        ],
+      },
+      {
+        heading: '4. Sharing Family Voices',
+        paragraphs: [
+          'Family voice recordings stay on your device unless you choose to share one. If you do, the app creates a .karagre file and hands it to your phone\'s share sheet, and you pick where it goes (for example WhatsApp). That transfer happens through the app you choose, under its own privacy policy. We never receive the file. Voices your family sends you are opened in Karagre and kept on your device.',
+        ],
+      },
+      {
+        heading: '5. Device Backup',
+        paragraphs: [
+          'Android\'s own device backup may include Karagre\'s app data in your Google account backup. That backup is end-to-end encrypted with your screen lock, and NextJedi cannot read it. You can turn backup off in your phone\'s system settings.',
+        ],
+      },
+      {
+        heading: '6. Purchases',
+        paragraphs: [
+          'Kul is a one-time purchase. Payment is handled entirely by Google Play or the Apple App Store under their own privacy policies. We receive no payment details, and the app checks your purchase on your device.',
+        ],
+      },
+      {
+        heading: '7. No Analytics, Ads or Tracking',
+        paragraphs: [
+          'Karagre contains no analytics, no crash reporting SDK, no advertising and no tracking of any kind. It does not use an advertising ID, does not collect your location, and does not access your contacts or photos. We do not sell or share data, because we do not have any.',
+        ],
+      },
+      {
+        heading: '8. Permissions',
+        paragraphs: ['Karagre asks only for what an alarm clock needs:'],
+        bullets: [
+          { label: 'Microphone', text: '— to check your recitation on the device while an alarm rings or while you practise.' },
+          { label: 'Notifications', text: '— to show the alarm on your lock screen when it rings.' },
+          { label: 'Alarms', text: '— to ring at exactly the time you set.' },
+          { label: 'Run at startup', text: '— (Android) to restore your alarms after the phone restarts.' },
+          { label: 'Vibration', text: '— to vibrate when the alarm rings.' },
+        ],
+      },
+      {
+        heading: '9. Keeping and Deleting Your Data',
+        paragraphs: [
+          'Because everything is on your device, you are in control of it. You can delete alarms and recordings in the app, or clear everything by clearing the app\'s storage or uninstalling Karagre. We hold no copy, so there is nothing for us to delete or hand over.',
+        ],
+      },
+      {
+        heading: '10. Children',
+        paragraphs: [
+          'Karagre is not directed at children under 13, and it does not collect personal data from anyone, including children.',
+        ],
+      },
+      {
+        heading: '11. Changes to This Policy',
+        paragraphs: [
+          'If we ever change how Karagre handles data, we will update this page and the date at the top before the change reaches the app stores.',
+        ],
+      },
+      {
+        heading: '12. Contact',
+        paragraphs: ['Questions about this policy? Email NextJedi at support@nextjedi.com.'],
+      },
+    ],
+  },
+
 };

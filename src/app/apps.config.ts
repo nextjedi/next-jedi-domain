@@ -10,6 +10,8 @@ export type AppPhase = 'development' | 'review' | 'launched';
 export interface PlatformConfig {
   stage: AppStage;
   storeUrl?: string; // required for early-access and production
+  /** Overrides the default "Android · Coming Soon" / "iOS · Coming Soon" button label. */
+  comingSoonLabel?: string;
 }
 
 export interface AppConfig {
@@ -29,6 +31,10 @@ export interface AppConfig {
   taglinePrefix: string;
   taglineAccent: string;
   features: AppFeature[];
+  /** Optional overrides for the app page's closing call-to-action box. */
+  ctaHeading?: string;
+  ctaSub?: string;
+  ctaNote?: string;
 }
 
 export const APPS: AppConfig[] = [
@@ -229,5 +235,49 @@ export const APPS: AppConfig[] = [
           'Log your matches, mental state, and breakthroughs to track your mindset progress over time.',
       },
     ],
+  },
+  {
+    // Karagre — store title "Karagre: Mantra Alarm Clock", com.nextjedi.karagre (Android + iOS).
+    // Not released yet: keep both platforms 'coming-soon' and name no launch date here.
+    // TODO(karagre-icon): add iconImage: '/apps/karagre/icon.png' once the 512px store icon
+    // exists (D:/Projects/karagre/design/store/icon-512.png). Until then the page falls back
+    // to the Material Symbol below.
+    slug: 'karagre',
+    name: 'Karagre: Mantra Alarm Clock',
+    phase: 'development',
+    description:
+      'An alarm clock that ends when you recite the Karāgre Vasate Lakṣmī morning shloka. Your recitation is checked gently, on your phone, and never leaves it.',
+    category: 'Lifestyle',
+    icon: 'wb_twilight',
+    android: { stage: 'coming-soon', comingSoonLabel: 'Coming soon to Google Play' },
+    ios: { stage: 'coming-soon', comingSoonLabel: 'Coming later to the App Store' },
+    accent: '#9C6A1C',
+    accentLight: '#FBE3A8',
+    accentDark: '#2B2118',
+    taglinePrefix: 'Wake with',
+    taglineAccent: 'a verse.',
+    features: [
+      {
+        icon: 'record_voice_over',
+        title: 'Recite to Wake',
+        description:
+          'The alarm ends when you recite Karāgre Vasate Lakṣmī. Recognition is lenient and runs entirely on your phone, and your recitation never leaves it.',
+      },
+      {
+        icon: 'touch_app',
+        title: "Can't Speak? Read & Tap",
+        description:
+          'Someone asleep beside you? Choose "Can\'t speak" and read the verse line by line, tapping as you go.',
+      },
+      {
+        icon: 'family_restroom',
+        title: "Kul — Your Family's Voices",
+        description:
+          'A one-time, pay-what-you-choose unlock. Record your voice reciting the verse and share it with family, so mornings start with voices you love.',
+      },
+    ],
+    ctaHeading: 'Mornings, the traditional way.',
+    ctaSub: 'Karagre is almost ready. Tap a store below to be told when it arrives.',
+    ctaNote: 'No account · No ads · No subscription · Works offline',
   },
 ];
