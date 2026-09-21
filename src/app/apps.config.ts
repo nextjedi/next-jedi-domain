@@ -239,9 +239,6 @@ export const APPS: AppConfig[] = [
   {
     // Karagre — store title "Karagre: Mantra Alarm Clock", com.nextjedi.karagre (Android + iOS).
     // Not released yet: keep both platforms 'coming-soon' and name no launch date here.
-    // TODO(karagre-icon): add iconImage: '/apps/karagre/icon.png' once the 512px store icon
-    // exists (D:/Projects/karagre/design/store/icon-512.png). Until then the page falls back
-    // to the Material Symbol below.
     slug: 'karagre',
     name: 'Karagre: Mantra Alarm Clock',
     phase: 'development',
@@ -249,6 +246,7 @@ export const APPS: AppConfig[] = [
       'An alarm clock that ends when you recite the Karāgre Vasate Lakṣmī morning shloka. Your recitation is checked gently, on your phone, and never leaves it.',
     category: 'Lifestyle',
     icon: 'wb_twilight',
+    iconImage: '/apps/karagre/icon.png',
     android: { stage: 'coming-soon', comingSoonLabel: 'Coming soon to Google Play' },
     ios: { stage: 'coming-soon', comingSoonLabel: 'Coming later to the App Store' },
     accent: '#9C6A1C',
