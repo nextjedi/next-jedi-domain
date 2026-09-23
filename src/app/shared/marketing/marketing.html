@@ -28,8 +28,57 @@
         Back to {{ app.name }}
       </a>
       <p class="sub-eyebrow">{{ app.name }}</p>
-      <h1>Marketing</h1>
-      <p>Marketing assets and resources for {{ app.name }} are being prepared.</p>
+      @if (content) {
+        <h1>{{ content.headline }}</h1>
+        <p class="lead">{{ content.intro }}</p>
+
+        @if (content.verse) {
+          <figure class="verse">
+            <blockquote lang="sa">
+              @for (line of content.verse.original; track $index) {
+                <span class="verse-line">{{ line }}</span>
+              }
+            </blockquote>
+            <p class="verse-translit">
+              @for (line of content.verse.transliteration; track $index) {
+                <span class="verse-line">{{ line }}</span>
+              }
+            </p>
+            <figcaption>{{ content.verse.meaning }}</figcaption>
+          </figure>
+        }
+
+        @for (section of content.sections; track section.heading) {
+          <h2>{{ section.heading }}</h2>
+          @for (para of section.paragraphs; track $index) {
+            <p>{{ para }}</p>
+          }
+          @if (section.bullets) {
+            <ul>
+              @for (bullet of section.bullets; track $index) {
+                <li>
+                  @if (bullet.label) {<strong>{{ bullet.label }}</strong>}
+                  {{ bullet.text }}
+                </li>
+              }
+            </ul>
+          }
+        }
+
+        <div class="availability">
+          @for (line of content.availability; track line) {
+            <span class="pill">{{ line }}</span>
+          }
+        </div>
+
+        <p class="contact">
+          Press and partnership enquiries:
+          <a [href]="'mailto:' + content.contactEmail">{{ content.contactEmail }}</a>
+        </p>
+      } @else {
+        <h1>Marketing</h1>
+        <p>Marketing assets and resources for {{ app.name }} are being prepared.</p>
+      }
     </div>
   </main>
 

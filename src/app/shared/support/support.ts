@@ -166,6 +166,7 @@ export class SharedSupport implements OnInit {
   })();
 
   protected content: AppSupportContent | null = SUPPORT_CONTENT[this.app.slug] ?? null;
+  protected contactEmail = this.content?.contactEmail ?? 'arunabh@nextjedi.com';
   protected allApps = APPS;
   protected hasAppContext = !!this.app.slug && APPS.some(a => a.slug === this.app.slug);
 

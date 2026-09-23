@@ -43,6 +43,10 @@ export const routes: Routes = [
   { path: 'mindful-journal/privacy-policy', redirectTo: 'mindful-journal/privacy', pathMatch: 'full' },
   { path: 'mindful-journal/delete-account', component: SharedDeleteAccount, data: { appSlug: 'mindful-journal' } },
 
+  // Karagre — store listings point at /privacy (NEX-624). /privacy-policy stays as an alias.
+  { path: 'karagre/privacy', component: SharedPrivacyPolicy, data: { appSlug: 'karagre', canonicalPath: '/karagre/privacy' } },
+  { path: 'karagre/privacy-policy', redirectTo: 'karagre/privacy', pathMatch: 'full' },
+
   // All other apps use the generic AppPage template
   ...APPS.filter(app => app.slug !== 'mindful-tennis').flatMap(app => appRoutes(app.slug)),
 ];
