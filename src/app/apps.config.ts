@@ -230,4 +230,40 @@ export const APPS: AppConfig[] = [
       },
     ],
   },
+  {
+    slug: 'mindful-journal',
+    name: 'Mindful Journal',
+    phase: 'development',
+    description:
+      'A mindful training journal for every activity — sports, gym, yoga, meals and morning check-ins. Set an intention, reflect afterwards, and see what you have learned.',
+    category: 'Health & Fitness',
+    icon: 'self_improvement',
+    android: { stage: 'coming-soon' },
+    ios: { stage: 'coming-soon' },
+    accent: '#4F7458',
+    accentLight: '#DCE6D5',
+    accentDark: '#1E2A22',
+    taglinePrefix: 'Train with',
+    taglineAccent: 'intention.',
+    features: [
+      {
+        icon: 'edit_note',
+        title: 'Intention & Reflection',
+        description:
+          'Every session starts with an intention and ends with a reflection, so each workout teaches you something.',
+      },
+      {
+        icon: 'fitness_center',
+        title: 'Every Activity',
+        description:
+          'Racket sports, gym, yoga, swimming, meals and daily check-ins — all in one journal.',
+      },
+      {
+        icon: 'insights',
+        title: 'Progress & Learnings',
+        description:
+          'Trends, personal records, head-to-head results and the lessons you keep coming back to.',
+      },
+    ],
+  },
 ];
